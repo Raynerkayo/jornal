@@ -1,10 +1,17 @@
 package br.ufc.quixada.jornal.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,6 +37,20 @@ public class Usuario {
 	@NotEmpty(message = "O email é obrigatório")
 	@Column(nullable = false)
 	private String email;
+	
+	//mapeando os comentários a partir do atributo usuário na classe comentário
+	@OneToMany(mappedBy = "usuario", targetEntity=Comentario.class)
+	private List<Comentario> comentarios;
+	
+	@OneToMany(mappedBy = "usuario", targetEntity=Noticia.class)
+	private List<Noticia> noticias;
+	
+	@OneToMany(mappedBy = "usuario", targetEntity=Classificado.class)
+	private List<Classificado> classificados;
+	
+	@ManyToMany(fetch=FetchType.LAZY)																																	//pega o id_papel da table papel									
+	@JoinTable(name = "papel_usuario", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_papel",referencedColumnName = "id_papel"))
+	private List<Papel> papeis;
 	
 	public Long getId() {
 		return id;

@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
@@ -55,8 +57,9 @@ public class Classificado {
 	@Temporal(TemporalType.DATE)
 	private Date dataOferta;
 	
-	
-	//private Usuario idAutor;
+	@ManyToOne
+	@JoinColumn(name="id_usuario", referencedColumnName="id")
+	private Usuario usuario;	
 
 	public Long getId() {
 		return id;
@@ -113,13 +116,13 @@ public class Classificado {
 	public void setDataOferta(Date dataOferta) {
 		this.dataOferta = dataOferta;
 	}
-	/*
-	public Usuario getIdAutor() {
-		return idAutor;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setIdAutor(Usuario idAutor) {
-		this.idAutor = idAutor;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	*/
+	
 }

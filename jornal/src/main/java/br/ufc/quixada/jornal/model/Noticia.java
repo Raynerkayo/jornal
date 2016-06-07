@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,7 +40,11 @@ public class Noticia {
 	@Column(nullable = false)
 	@Lob
 	private String texto;
-//	private Autor idAutor;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario", referencedColumnName="id")
+	private Usuario usuario;
+	
 	
 	@NotNull(message="Data de vencimento é obrigatória.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -96,6 +101,14 @@ public class Noticia {
 
 	public void setSecao(Secao secao) {
 		this.secao = secao;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}	
 	
 	
