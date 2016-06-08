@@ -3,7 +3,6 @@ package br.ufc.quixada.jornal.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.ufc.quixada.jornal.model.Usuario;
@@ -20,11 +19,7 @@ public class CadastroUsuarioService {
 	private UsuarioRepository usuarioRepository;
 	
 	public void salvar(Usuario usuario){
-		try{
-			this.usuarioRepository.save(usuario);
-		} catch(DataIntegrityViolationException exception){
-			throw new IllegalArgumentException("Formato inválido de data.");
-		}
+		usuarioRepository.save(usuario);
 	}
 	
 	public void excluir(Long id){

@@ -91,5 +91,37 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public List<Noticia> getNoticias() {
+		return noticias;
+	}
+
+	public void setNoticias(List<Noticia> noticias) {
+		this.noticias = noticias;
+	}
+
+	public List<Classificado> getClassificados() {
+		return classificados;
+	}
+
+	public void setClassificados(List<Classificado> classificados) {
+		this.classificados = classificados;
+	}
+
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
+	}
 	
 }
