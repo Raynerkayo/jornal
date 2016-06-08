@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Inserir Papel</title>
+</head>
+<body>
+	<h2>Todos os papeis</h2>
+
+	<table border="1">
+		<tr th:each="papel : ${papeis}">
+
+			<td th:text="${papel.papelNome}"></td>
+
+		</tr>
+	</table>
+
+</body>
+</html>
