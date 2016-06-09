@@ -13,7 +13,7 @@ import br.ufc.quixada.jornal.repositoy.UsuarioRepository;
  * Classe de serviço, que deverá conter regras de negócio sempre que necessário.
  */
 @Service
-public class CadastroUsuarioService {
+public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;

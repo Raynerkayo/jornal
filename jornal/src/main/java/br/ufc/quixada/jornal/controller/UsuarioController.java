@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.jornal.model.Usuario;
-import br.ufc.quixada.jornal.service.CadastroUsuarioService;
+import br.ufc.quixada.jornal.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -24,7 +24,7 @@ public class UsuarioController {
 	private static final String LISTAR_USUARIOS = "teste/ListarUsuarios";
 
 	@Autowired
-	private CadastroUsuarioService cadastroUsuarioService;
+	private UsuarioService cadastroUsuarioService;
 
 	// new Usuario, é para passar o objeto para a view, para manter na edição
 	@RequestMapping("/novo")
