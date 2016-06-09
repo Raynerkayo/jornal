@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Inserir Papel</title>
+</head>
+<body>
+	<h2>Todos os usuarios</h2>
+
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Email</th>
+			<th>Login</th>
+			<th>Senha</th>
+			<th>Alterar</th>
+			<th>Excluir</th>
+			<th>Novo</th>
+		</tr>
+		<tr th:each="usuario : ${users}">
+			<td th:text="${usuario.id}"></td>
+			<td th:text="${usuario.nomeCompleto}"></td>
+			<td th:text="${usuario.email}"></td>
+			<td th:text="${usuario.login}"></td>
+			<td th:text="${usuario.senha}"></td>
+			<td><a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}">ALTERAR</a></td>
+			<td><a th:href="@{/usuarios/excluir/{id}(id=${usuario.id})}">EXCLUIR</a></td>
+	    	<td><a th:href="@{/usuarios/novo}">Novo</a></td>
+		</tr>
+	</table>
+
+</body>
+</html>
