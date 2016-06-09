@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +21,7 @@ import br.ufc.quixada.jornal.service.PapelService;
 public class PapelController {
 
 	private static final String CADASTRO_PAPEL = "CadastroPapel";
+	private static final String LISTAR_PAPEIS = "ListarPapeis";
 
 	@Autowired
 	private PapelService papelService;
@@ -43,10 +46,22 @@ public class PapelController {
 	}
 	
 	@RequestMapping("/listar")
-	public ModelAndView listar(){
-		List<Papel> papeis = papelService.listar();
-		ModelAndView modelAndView = new ModelAndView("ListarPapeis");
-		modelAndView.addObject("papeis", papeis);
-		return modelAndView;
+	public String listar(Model model){
+		List<Papel> papels = papelService.listar();
+		model.addAttribute("papels", papels);
+		return LISTAR_PAPEIS;
 	}
+	 
+	@RequestMapping("editar/{id}")
+	public String editar(@PathVariable("id") Papel papel, Model model){
+		model.addAttribute("papel", papel);
+		return CADASTRO_PAPEL;
+	}
+	
+	@RequestMapping("excluir/{id}")
+	public String excluir(@PathVariable("id") Long id){
+		papelService.excluir(id);
+		return "redirect:/papeis/listar";
+	}
+	
 }

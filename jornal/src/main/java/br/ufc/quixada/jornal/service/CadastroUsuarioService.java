@@ -26,6 +26,11 @@ public class CadastroUsuarioService {
 		usuarioRepository.delete(id);
 	}
 	
+	public List<Usuario> listar(){
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		return usuarios;
+	}
+	
 	public List<Usuario> pesquisar(Usuario usuario){
 		String pesquisarUsuario = usuario.getNomeCompleto() == null ? "%" : usuario.getNomeCompleto();
 		return usuarioRepository.findByNomeCompletoContaining(pesquisarUsuario);

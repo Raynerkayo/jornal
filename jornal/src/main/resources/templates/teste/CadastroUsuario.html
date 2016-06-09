@@ -6,7 +6,7 @@
 	<title>Cadastrar Usuários</title>
 </head>
 <body>
-	<h2>INSERIR USUARIO</h2>
+	<h2>USUARIO</h2>
 	<form th:action="@{/usuarios}" method="post" th:object="${usuario}">
 		<input type="hidden" th:field="*{id}"/>
 		Nome Completo: <input type="text" id="nomeCompleto" th:field="*{nomeCompleto}"/> <br />

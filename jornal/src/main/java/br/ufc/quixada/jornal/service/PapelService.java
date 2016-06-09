@@ -23,4 +23,8 @@ public class PapelService {
 		return papeis;
 	}
 
+	public void excluir(Long id) {
+		papelRepository.delete(id);		
+	}
+
 }

@@ -28,7 +28,7 @@ public class Usuario {
 
 	@NotEmpty(message = "O login é obrigatório")
 	@Column(nullable = false)
-	private String login;
+	private String login; 
 	
 	@NotEmpty(message = "A senha é obrigatória")
 	@Column(nullable = false)
