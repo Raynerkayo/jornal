@@ -1,4 +1,4 @@
-package br.ufc.quixada.jornal.repositoy;
+package br.ufc.quixada.jornal.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.jornal.model.Usuario;
@@ -28,18 +27,20 @@ public class UsuarioController {
 
 	// new Usuario, é para passar o objeto para a view, para manter na edição
 	@RequestMapping("/novo")
-	public ModelAndView novo() {
-		ModelAndView modelAndView = new ModelAndView(CADASTRO_USUARIO);
-		modelAndView.addObject(new Usuario());
-		return modelAndView;
+	public String novo(Usuario usuario, Model model) {		
+		model.addAttribute("usuario", new Usuario());
+		return CADASTRO_USUARIO;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes) {
 		if (errors.hasErrors()) {
 			return CADASTRO_USUARIO;
 		}
-		cadastroUsuarioService.salvar(usuario);
+		/*
+		 * Lembrar de verificar se já existe um login com o novo login
+		 * */
+		cadastroUsuarioService.salvar(usuario); 
 		attributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso.");
 		return "redirect:/usuarios/novo";
 	}

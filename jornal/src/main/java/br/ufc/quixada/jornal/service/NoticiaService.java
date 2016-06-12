@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufc.quixada.jornal.model.Noticia;
-import br.ufc.quixada.jornal.repositoy.NoticiaRepository;
+import br.ufc.quixada.jornal.repository.NoticiaRepository;
 
 @Service
 public class NoticiaService {

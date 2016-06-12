@@ -1,4 +1,4 @@
-package br.ufc.quixada.jornal.repositoy;
+package br.ufc.quixada.jornal.repository;
 
 import java.util.List;
 
@@ -10,4 +10,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	public List<Usuario> findByNomeCompletoContaining(String usuario);
 	
-}
+	//public List<Usuario> findByLoginLike(String login);
+	
+	public Usuario findByLoginLike(String login);
+	
+} 
