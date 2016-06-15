@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h2>Jornalista</h2>
-	<form th:action="@{/editor/cadastrar/jornalista}" method="post" th:object="${usuario}">
+	<form th:action="@{/editor/cadastrarJornalista}" method="post" th:object="${usuario}">
 		<input type="hidden" th:field="*{id}"/>
 		Nome Completo: <input type="text" id="nomeCompleto" th:field="*{nomeCompleto}"/> <br />
 		Login: <input type="text" id="login" th:field="*{login}"/> <br />

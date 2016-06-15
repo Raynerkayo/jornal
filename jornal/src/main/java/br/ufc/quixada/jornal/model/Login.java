@@ -1,4 +1,4 @@
-package br.ufc.quixada.jornal.securanca;
+package br.ufc.quixada.jornal.model;
 
 public class Login {
 
