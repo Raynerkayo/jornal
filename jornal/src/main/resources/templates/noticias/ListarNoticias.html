@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Inserir Papel</title>
+</head>
+<body>
+	<h2>Todas as notícias</h2>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>Titulo</th>
+			<th>SubTitulo</th>
+			<th>Texto</th>
+			<th>Data</th>
+		</tr>
+		<tr th:each="noticia : ${noticias}">
+			<td th:text="${noticia.id}"></td>
+			<td th:text="${noticia.titulo}"></td>
+			<td th:text="${noticia.subTitulo}"></td>
+			<td th:text="${noticia.texto}"></td>
+			<td th:text="${{noticia.dataNoticia}}"></td>
+			<td><a th:href="@{/noticias/editar/{id}(id=${noticia.id})}">Editar</a></td>
+			<td><a th:href="@{/noticias/excluir/{id}(id=${noticia.id})}">Excluir</a></td>
+			<td><a th:href="@{/noticias/nova}">Nova</a></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<th>Entrar no sistema</th>
+			<th>Cadastre-se</th>
+			<th>Seção 1</th>
+			<th>Seção 2</th>
+			
+			<th></th>
+		</tr>
+	</table>
+</body>
+</html>

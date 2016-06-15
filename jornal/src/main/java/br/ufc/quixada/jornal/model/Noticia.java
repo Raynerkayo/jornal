@@ -33,8 +33,8 @@ public class Noticia {
 	private String titulo;
 	
 	@NotEmpty(message = "O subtitulo é obrigatório")
-	@Column(nullable = false)
-	private String subtitulo;
+	@Column(name="sub_titulo", nullable = false)
+	private String subTitulo;
 	
 	@NotEmpty(message = "O texto é obrigatório")
 	@Column(nullable = false)
@@ -71,12 +71,12 @@ public class Noticia {
 		this.titulo = titulo;
 	}
 
-	public String getSubtitulo() {
-		return subtitulo;
+	public String getSubTitulo() {
+		return subTitulo;
 	}
 
-	public void setSubtitulo(String subtitulo) {
-		this.subtitulo = subtitulo;
+	public void setSubTitulo(String subTitulo) {
+		this.subTitulo = subTitulo;
 	}
 
 	public String getTexto() {
