@@ -1,4 +1,4 @@
-package br.ufc.quixada.jornal.repository;
+package br.ufc.quixada.jornal.repositoy;
 
 import java.util.List;
 
