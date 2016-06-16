@@ -1,12 +1,10 @@
 package br.ufc.quixada.jornal.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -21,9 +19,9 @@ public class Papel {
 	@NotEmpty(message = "Este campo não pode ficar em branco!")
 	@Column(name = "papel_nome")
 	private String papelNome;
-
-	@ManyToMany(mappedBy = "papeis")
-	private List<Usuario> usuarios;
+	
+	@ManyToOne
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -41,11 +39,13 @@ public class Papel {
 		this.papelNome = papelNome;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public Usuario getUsuarios() {
+		return usuario;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setUsuarios(Usuario usuario) {
+		this.usuario = usuario;
 	}
+
+	
 }
