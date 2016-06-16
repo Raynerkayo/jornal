@@ -1,10 +1,10 @@
 package br.ufc.quixada.jornal.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,30 +28,30 @@ public class Usuario {
 
 	@NotEmpty(message = "O login é obrigatório")
 	@Column(nullable = false)
-	private String login;
-
+	private String login; 
+	
 	@NotEmpty(message = "A senha é obrigatória")
 	@Column(nullable = false)
 	private String senha;
-
+	
 	@NotEmpty(message = "O email é obrigatório")
 	@Column(nullable = false)
 	private String email;
-
-	// mapeando os comentários a partir do atributo usuário na classe comentário
-	@OneToMany(mappedBy = "usuario", targetEntity = Comentario.class)
+	
+	//mapeando os comentários a partir do atributo usuário na classe comentário
+	@OneToMany(mappedBy = "usuario", targetEntity=Comentario.class)
 	private List<Comentario> comentarios;
-
-	@OneToMany(mappedBy = "usuario", targetEntity = Noticia.class)
+	
+	@OneToMany(mappedBy = "usuario", targetEntity=Noticia.class)
 	private List<Noticia> noticias;
-
-	@OneToMany(mappedBy = "usuario", targetEntity = Classificado.class)
+	
+	@OneToMany(mappedBy = "usuario", targetEntity=Classificado.class)
 	private List<Classificado> classificados;
-
-	@ManyToMany // pega o id_papel da table papel
-	@JoinTable(name = "papel_usuario", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_papel", referencedColumnName = "id_papel"))
+	
+	@ManyToMany(fetch=FetchType.LAZY)																																	//pega o id_papel da table papel									
+	@JoinTable(name = "papel_usuario", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_papel",referencedColumnName = "id_papel"))
 	private List<Papel> papeis;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -120,11 +120,8 @@ public class Usuario {
 		return papeis;
 	}
 
-	public void setPapeis(Papel papel) {
-		if (this.papeis == null) {
-			this.papeis = new ArrayList<>();
-		}
-		this.papeis.add(papel);
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
 	}
-
+	
 }

@@ -29,9 +29,8 @@ public class JornalApplication {
 		
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry){
-			registry.addRedirectViewController("/", "/noticias/listar"); 
+			registry.addRedirectViewController("/", "usuarios/listar"); 
 		}
 		
 	}
-	
 }
