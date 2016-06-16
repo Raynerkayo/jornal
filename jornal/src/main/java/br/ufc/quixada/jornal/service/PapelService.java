@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufc.quixada.jornal.model.Papel;
-import br.ufc.quixada.jornal.repository.PapelRepository;
+import br.ufc.quixada.jornal.repositoy.PapelRepository;
 
 @Service
 public class PapelService {
@@ -25,11 +25,6 @@ public class PapelService {
 
 	public void excluir(Long id) {
 		papelRepository.delete(id);		
-	}
-
-	public Papel recupera(Long id) {
-		Papel papel = papelRepository.findOne(id);
-		return papel;
 	}
 
 }

@@ -40,7 +40,7 @@ public class Classificado {
 	@DecimalMin(value="0.00", message="Valor não pode ser menor que R$ 0,00")
 	@DecimalMax(value="99999999.99", message="Estourou o limite")
 	@NumberFormat(pattern = "#,##0.00")
-	private float preco; 
+	private float preco;
 	
 	@NotEmpty(message = "O telefone é obrigatório")
 	@Column(nullable = false)
@@ -52,7 +52,7 @@ public class Classificado {
 	@NumberFormat(pattern = "#,##0.00")
 	private float melhorOferta;
 	
-	@NotNull(message="Data da oferta.")
+	@NotNull(message="Data de vencimento é obrigatória.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataOferta;
