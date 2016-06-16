@@ -25,6 +25,7 @@
 			<td th:text="${usuario.email}"></td>
 			<td th:text="${usuario.login}"></td>
 			<td th:text="${usuario.senha}"></td>
+			<td th:each="papel : ${usuario.papeis}" th:text="${papel.papelNome}"></td>
 			<td><a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}">ALTERAR</a></td>
 			<td><a th:href="@{/usuarios/excluir/{id}(id=${usuario.id})}">EXCLUIR</a></td>
 	    	<td><a th:href="@{/usuarios/novo}">Novo</a></td>

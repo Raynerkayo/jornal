@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"/>
+	<title>Cadastrar Usuários</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.standalone.min.css}"/>
+</head>
+<body>
+	<h2>NOTICIA</h2>
+	<form th:action="@{/noticias}" method="post" th:object="${noticia}">
+		<input type="hidden" th:field="*{id}"/>
+		Titulo: <input type="text" id="titulo" th:field="*{titulo}"/> <br />
+		SubTitulo: <input type="text" id="subTitulo" th:field="*{subTitulo}"/> <br />
+		Texto: <input type="text" id="texto" th:field="*{texto}" /> <br />
+		Data da Noticia:<input type="text" id="dataNoticia" th:field="*{dataNoticia}"
+						data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+						data-date-autoclose="true"  data-date-today-highlight="true" data-date-orientation="bottom"/>
+		<input type="submit" value="SALVAR"/> 
+	</form>
+	
+	
+	
+<script th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.pt-BR.min.js}"></script>
+<script th:src="@{/js/jquery.maskMoney.min.js}"></script>
+<script th:src="@{/js/cobranca.js}"></script>
+</body>
+</html>
