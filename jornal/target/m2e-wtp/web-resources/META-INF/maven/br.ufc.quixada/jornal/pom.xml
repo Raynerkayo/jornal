@@ -60,6 +60,12 @@
     		<artifactId>org.apache.commons.codec</artifactId>
     		<version>1.8</version>
 		</dependency>
+		<!-- tag::security[] -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- end::security[] -->
 	</dependencies>
 	
 	<build>

@@ -19,8 +19,8 @@ import br.ufc.quixada.jornal.service.UsuarioService;
 @RequestMapping("/usuarios")
 public class UsuarioController {
  
-	private static final String CADASTRO_USUARIO = "teste/CadastroUsuario";
-	private static final String LISTAR_USUARIOS = "teste/ListarUsuarios";
+	private static final String CADASTRO_USUARIO = "usuario/CadastroUsuario";
+	private static final String LISTAR_USUARIOS = "usuario/ListarUsuarios";
 
 	@Autowired
 	private UsuarioService cadastroUsuarioService;

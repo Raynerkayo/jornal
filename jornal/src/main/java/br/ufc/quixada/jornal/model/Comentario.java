@@ -23,6 +23,10 @@ public class Comentario {
 	@JoinColumn(name="id_usuario", referencedColumnName="id")
 	private Usuario usuario;
 	
+	@ManyToOne
+	@JoinColumn(name="id_noticia", referencedColumnName="id")
+	private Noticia noticia;
+	
 	public Long getId() {
 		return id;
 	}

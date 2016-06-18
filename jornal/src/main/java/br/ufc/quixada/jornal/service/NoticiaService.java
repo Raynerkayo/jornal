@@ -27,4 +27,16 @@ public class NoticiaService {
 		return noticias;
 	}
 	
+	public List<Noticia> listarNoticiasJornalista(Long id){
+		List<Noticia> noticiasJornalista = noticiaRepository.findByNoticiaIdUsuario(id);
+		return noticiasJornalista;
+	}
+	
+	public List<Noticia> listarNoticiaSecao(Long id){
+		List<Noticia> noticiasSecao = noticiaRepository.findByNoticiaSecao(id);
+		return noticiasSecao;
+	}
+	
+	
+	
 }

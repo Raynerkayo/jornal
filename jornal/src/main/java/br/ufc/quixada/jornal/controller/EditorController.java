@@ -8,38 +8,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ufc.quixada.jornal.model.Classificado;
-import br.ufc.quixada.jornal.model.Papel;
+import br.ufc.quixada.jornal.model.Secao;
 import br.ufc.quixada.jornal.model.Usuario;
-import br.ufc.quixada.jornal.service.ClassificadoService;
-import br.ufc.quixada.jornal.service.UsuarioService;
+import br.ufc.quixada.jornal.service.SecaoService;
 
 @Controller
 @RequestMapping("/editor")
 public class EditorController {
-
+	
 	@Autowired
-	private UsuarioService serviceUsuario;
+	private SecaoService secaoService; 
 
-	@Autowired
-	private ClassificadoService classificadoService;
-
-	private static String CADASTRAR_JORNALISTA = "editor/CadastrarJornalista";
+	private static String CADASTRAR_USUARIO = "usuario/CadastroUsuario";
 	private static String CADASTRAR_CLASSIFICADO = "editor/CadastrarClassificado";
-	private static Long ID_JORNALISTA = 2L;
+	private static String CADASTRAR_SECAO = "editor/CadastrarSecao";
+	private static String VISAO_GERAL_EDITOR = "editor/Geral";
 
-	@RequestMapping(value = "/cadastrar/jornalista", method = RequestMethod.GET)
+	@RequestMapping(value = "/cadastrar/usuario", method = RequestMethod.GET)
 	public String novoJornalista(Usuario usuario, Model model) {
-		// model.addAttribute("jornalista", new Usuario());
+		// aqui eu chamo a view de cadastrar usuário, e de lá é enviado para o
+		// usuário controller.
 		model.addAttribute(new Usuario());
-		return CADASTRAR_JORNALISTA;
-	}
-
-	@RequestMapping(value = "/cadastrar/jornalista", method = RequestMethod.POST)
-	public String cadastarJornalista(@Validated Usuario usuario, Papel papel, Model model) {
-		papel.setId(ID_JORNALISTA);
-		usuario.setPapeis(papel);
-		serviceUsuario.salvar(usuario);
-		return "redirect:/editor/cadastrar/jornalista";
+		return CADASTRAR_USUARIO;
 	}
 
 	@RequestMapping(value = "/cadastrar/classificado", method = RequestMethod.GET)
@@ -48,12 +38,24 @@ public class EditorController {
 		return CADASTRAR_CLASSIFICADO;
 	}
 
-	@RequestMapping(value = "/cadastrar/classificado", method = RequestMethod.POST)
-	public String cadastrarClassificado(@Validated Classificado classificado,
-			Model model) {
-
-		classificadoService.salvar(classificado);
-		return "redirect:/editor/cadastrar/classificado";
+	/*
+	 * @RequestMapping(value = "/cadastrar/classificado", method =
+	 * RequestMethod.POST) public String cadastrarClassificado(@Validated
+	 * Classificado classificado, Model model) {
+	 * classificadoService.salvar(classificado); return
+	 * "redirect:/editor/cadastrar/classificado"; }
+	 */
+	
+	@RequestMapping(value = "/cadastrar/secao", method = RequestMethod.GET)
+	public String novaSecao(Model model){
+		model.addAttribute(new Secao());
+		return CADASTRAR_SECAO;
 	}
-
+	
+	@RequestMapping(value = "/cadastrar/secao", method = RequestMethod.POST)
+	public String salvarSecao(@Validated Secao secao){
+		secaoService.salvar(secao);
+		return VISAO_GERAL_EDITOR;
+	}
+	//apagar notícia será feito no controller notícia, então eu capturo o usuário que está logado e suas permissões
 }
