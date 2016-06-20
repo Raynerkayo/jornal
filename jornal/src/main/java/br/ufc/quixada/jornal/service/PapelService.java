@@ -31,5 +31,10 @@ public class PapelService {
 		Papel papel = papelRepository.findOne(id);
 		return papel;
 	}
+	
+	/*public Papel papelUsuario(Long idUsuario){
+		//Papel papeis = papelRepository.findByPapelIdUsuario(idUsuario);
+		return papel;
+	}*/
 
 }
