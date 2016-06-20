@@ -18,13 +18,16 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	/*@Autowired
+	private PapelRepository papelRepository;*/
 		
 	@Autowired
-	private Criptografia senhaCriptografia;
+	private Criptografia criptografar;
 	
 	//Lembrar de comparar os nomes dos usuários
 	public void salvar(Usuario usuario){
-		usuario.setSenha(senhaCriptografia.criptografarSenha(usuario.getSenha()));
+		usuario.setSenha(criptografar.criptografarSenha(usuario.getSenha()));
 		usuarioRepository.save(usuario);
 	}
 	
@@ -43,8 +46,29 @@ public class UsuarioService {
 	}
 	
 	public Usuario logar(String login) {
+		//List<Papel> papeis = papelRepository.findByPapelNome(Long id);
 		Usuario usuario = usuarioRepository.findByLoginLike(login);
+		
 		return usuario;
 	}
+
+	public Usuario logar(String login, String senha) {
+		Usuario usuario = usuarioRepository.findByLoginLike(login);
+		if(usuario != null){
+			if(criptografar.criptografarSenha(senha).equals(usuario.getSenha())){
+				return usuario;
+			}
+		}
+		return null;
+	}
+	/*public Usuario logar(String login, String senha) {
+		Usuario usuario = usuarioRepository.findByLoginLike(login);
+		if(usuario != null){
+			if(criptografar.criptografarSenha(senha).equals(usuario.getSenha())){
+				return usuario;
+			}
+		}
+		return null;
+	}*/
 	
 }

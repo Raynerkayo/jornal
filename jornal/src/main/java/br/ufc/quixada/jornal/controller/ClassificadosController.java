@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.ufc.quixada.jornal.model.Classificado;
 import br.ufc.quixada.jornal.service.ClassificadoService;
 
@@ -45,9 +44,6 @@ public class ClassificadosController {
 		model.addAttribute("classificados", classificados);
 		return LISTAR_CLASSIFICADOS;
 	}
-	
-	
-	
 	
 	@RequestMapping(value = "/comprar", method = RequestMethod.GET)
 	public String listaClassificado(){

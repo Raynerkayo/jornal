@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"/>
+<title>Inserir Papel</title>
+</head>
+<body>
+	<h2>Inserir Papel</h2>
+	<form th:action="@{/comentarios}" method="post" th:object="${texto}">
+		<input type="hidden" th:field="*{id}"/>
+		Texto: <input type="text" id="texto" th:field="*{texto}"/>
+		<input type="submit" value="SALVAR"/>
+	</form>
+
+</body>
+</html>

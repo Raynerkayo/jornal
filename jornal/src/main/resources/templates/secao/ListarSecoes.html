@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Inserir Papel</title>
+</head>
+<body>
+	<h2>Todas as Seções</h2>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>Titulos</th>
+			<th>Descrição</th>
+			<th>Alterar</th>
+			<th>Excluir</th>
+		</tr>
+		<tr th:each="secao : ${secoes}">
+			<td th:text="${secao.id}"></td>
+			<td ><a th:href="@{/noticias/secao/{id}(id=${secao.id})}" th:text="${secao.titulo}"></a></td>
+			<td th:text="${secao.descricao}"></td>
+			<td><a th:href="@{/secoes/editar/{id}(id=${secao.id})}">Editar</a></td>
+			<td><a th:href="@{/secoes/excluir/{id}(id=${secao.id})}">Excluir</a></td>
+		</tr>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Usando Carousel</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container">
+		<h1>Criando um Carousel</h1>
+
+		<div id="Carrosel" class="carousel slide" data-ride="carousel" data-interval="3000">
+			<ol class="carousel-indicators">
+				<li data-target="#Carrosel" data-slide-to="0" class="active"></li>
+				<li data-target="#Carrosel" data-slide-to="1"></li>
+				<li data-target="#Carrosel" data-slide-to="2"></li>
+			</ol>
+			<!--Colocar slides-->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="https://unsplash.it/1280/420?random">
+					<div class="carousel-caption">
+						<h3>Slide foto Um</h3>
+						<p>Subtítulo do slide Um</p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="https://unsplash.it/1279/420?random">
+					<div class="carousel-caption">
+						<h3>Slide foto Dois</h3>
+						<p>Subtítulo do slide Dois</p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="https://unsplash.it/1278/420?random">
+					<div class="carousel-caption">
+						<h3>Slide foto Três</h3>
+						<p>Subtítulo do slide Três</p>
+					</div>
+				</div>
+			</div>
+			<a class="left carousel-control" href="#Carrosel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			<a class="right carousel-control" href="#Carrosel" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		</div>
+
+	</div>
+
+
+
+
+<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>

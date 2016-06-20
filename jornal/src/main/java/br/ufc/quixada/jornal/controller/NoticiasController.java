@@ -19,7 +19,6 @@ public class NoticiasController {
 
 	private static final String CADASTRAR_NOTICIAS = "noticias/CadastrarNoticias";
 	private static final String LISTAR_NOTICIAS = "noticias/ListarNoticias";
-	private static final String LISTAR_COMENTARIOS ="noticias/ListarComentarios";//não vou precisar de um html. devo atricuibr no html de notícia
 
 	@Autowired
 	private NoticiaService noticiaService;
@@ -63,11 +62,11 @@ public class NoticiasController {
 		return LISTAR_NOTICIAS;
 	}
 	
-	@RequestMapping(value = "listar/comentarios", method = RequestMethod.GET)
-	public String listarComentarios(Model model){
-		
-		return LISTAR_COMENTARIOS;
+	@RequestMapping(value = "/secao/{id}", method = RequestMethod.GET)
+	public String listarNoticiasSecoes(@PathVariable("id") Long id, Model model){
+		List<Noticia> noticiasPorSecao = noticiaService.listarNoticiaSecao(id);
+		model.addAttribute("noticias", noticiasPorSecao);
+		return LISTAR_NOTICIAS;
 	}
-	
 	
 }

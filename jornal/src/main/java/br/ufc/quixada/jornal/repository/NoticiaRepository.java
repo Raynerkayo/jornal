@@ -15,4 +15,10 @@ public interface NoticiaRepository extends JpaRepository<Noticia, Long>{
 	
 	@Query(value = "SELECT * FROM noticia WHERE id_secao = ?", nativeQuery = true)
 	List<Noticia> findByNoticiaSecao(Long id);
+	
+/*	select p.papel_nome 
+	from usuario u, papel p, papel_usuario pu 
+	where u.id = 12 and (pu.id_usuario = u.id and pu.id_papel = p.id_papel);
+*/
+
 } 

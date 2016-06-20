@@ -15,4 +15,7 @@ public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
 	@Query("select c from Comentario c where c.noticia = ?")
 	List<Comentario> findByComentarioIdNoticia(Long idNoticia);
 
+	//@Query("select u.login, c.texto, n.texto, n.data_noticia from comentario c, noticia n, usuario u where (c.id_noticia = ? and n.id = ?) and (c.id_usuario = ?  and u.id = ?)", nativeQuery = true)
+	//List<Comentario> findByComentarioUsuarioNoticia(Long id, Long idS);
+		List<Comentario> findByUsuarioAndNoticiaLike(Long usuario, Long noticia);
 }
