@@ -3,10 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8"/>
-<title>Inserir Papel</title>
+<title>Inserir comentário</title>
 </head>
 <body>
-	<h2>Inserir Papel</h2>
+	<h2>Inserir comentário</h2>
 	<form th:action="@{/comentario/noticia/{id}(id=${noticia.id})}" method="post" th:object="${comentario}">
 		Texto: <input type="text" id="texto" th:field="*{texto}"/>
 		<input type="submit" value="SALVAR"/>

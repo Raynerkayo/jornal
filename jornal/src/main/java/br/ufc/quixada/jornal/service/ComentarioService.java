@@ -15,27 +15,25 @@ public class ComentarioService {
 
 	@Autowired
 	private ComentarioRepository comentarioRepository;
-	
-	public void salvar(Comentario comentario){
+
+	public void salvar(Comentario comentario) {
 		comentarioRepository.save(comentario);
 	}
-	
-	public List<Comentario> findByComentariosIdUsuario(Long idUsuario){
-		List<Comentario> comentarios = comentarioRepository.findByComentarioIdUsuario(idUsuario);
-		return comentarios;
+
+	public List<Comentario> findByComentariosIdUsuario(Long idUsuario) {
+		return comentarioRepository.findByComentarioIdUsuario(idUsuario);
 	}
-	
-	public List<Comentario> findByComentarioNoticia(Long idNoticia){
-		List<Comentario> comentarios = comentarioRepository.findByComentarioIdNoticia(idNoticia);
-		return comentarios;
+
+	public List<Comentario> findByComentarioNoticia(Long idNoticia) {
+		return comentarioRepository.findByComentarioIdNoticia(idNoticia);
 	}
-	
-	public List<Comentario> comentarioNoticiaUsuario(Usuario usuario, Noticia noticia){
+
+	public List<Comentario> comentarioNoticiaUsuario(Usuario usuario, Noticia noticia) {
 		return comentarioRepository.findByUsuarioAndNoticiaContains(usuario.getId(), noticia.getId());
 	}
-	
-	public List<Comentario> comentariosNoticiaId(Long idNoticia){
+
+	public List<Comentario> comentariosNoticiaId(Noticia idNoticia) {
 		return comentarioRepository.findByNoticiaLike(idNoticia);
 	}
-	
+
 }

@@ -24,7 +24,7 @@ public class EditorController {
 		return CADASTRAR_USUARIO;
 	}
 
-	@RequestMapping(value = "/cadastrar/classificado", method = RequestMethod.GET)
+	@RequestMapping(value = "/cadastrar/classificado/novo", method = RequestMethod.GET)
 	public String novoClassificado(Classificado classificado, Model model) {
 		model.addAttribute(new Classificado());
 		return CADASTRAR_CLASSIFICADO;

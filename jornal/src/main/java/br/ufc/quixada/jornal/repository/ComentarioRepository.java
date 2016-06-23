@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.ufc.quixada.jornal.model.Comentario;
+import br.ufc.quixada.jornal.model.Noticia;
 
 public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
 
@@ -19,5 +20,5 @@ public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
 	//List<Comentario> findByComentarioUsuarioNoticia(Long id, Long idS);
 	List<Comentario> findByUsuarioAndNoticiaContains(Long usuario, Long noticia);
 	
-	List<Comentario> findByNoticiaLike(Long id);
+	List<Comentario> findByNoticiaLike(Noticia id);
 }

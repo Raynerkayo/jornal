@@ -1,5 +1,7 @@
 package br.ufc.quixada.jornal.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class ComentarioController {
 	@Autowired
 	private NoticiaService noticiaService;
 
-	private static String FAZER_COMENTARIOS = "CadastroComentario";
+	private static String FAZER_COMENTARIOS = "comentarios/CadastroComentario";
+	private static String LISTAR_COMENTARIOS = "comentarios/ListarComentarios";
 
 	@RequestMapping(value = "/noticia/{id}", method = RequestMethod.GET)
 	public String novo(@PathVariable("id") Long id, Model model, Comentario comentario) {
@@ -46,4 +49,12 @@ public class ComentarioController {
 		}
 		return "redirect:/login/efetuarLogin";
 	}
+
+	@RequestMapping(value = "listar/comentarios/noticia/{id}", method = RequestMethod.GET)
+	public String listarComentarioNoticia(@PathVariable("id") Noticia id, Comentario comentario, Model model){
+		List<Comentario> comentariosNoticia = comentarioService.comentariosNoticiaId(id);
+		model.addAttribute("comentarios", comentariosNoticia);
+		return LISTAR_COMENTARIOS;
+	}
+	
 }

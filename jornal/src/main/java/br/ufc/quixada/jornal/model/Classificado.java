@@ -52,14 +52,13 @@ public class Classificado {
 	@NumberFormat(pattern = "#,##0.00")
 	private float melhorOferta;
 	
-	@NotNull(message="Data da oferta.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataOferta;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario", referencedColumnName="id")
-	private Usuario usuario;	
+	private Usuario usuario;	 
 
 	public Long getId() {
 		return id;

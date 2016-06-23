@@ -1,7 +1,5 @@
 package br.ufc.quixada.jornal.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +30,7 @@ public class NoticiasController {
 	
 	@RequestMapping("/nova")
 	public String novo(Model model, Noticia noticia) {
-		List<Secao> secoes = secaoService.listar();
-		model.addAttribute("secoes", secoes);
+		model.addAttribute("secoes", secaoService.listar());
 		model.addAttribute(new Noticia());
 		return CADASTRAR_NOTICIAS;
 	}
@@ -55,15 +52,13 @@ public class NoticiasController {
 
 	@RequestMapping("/listar")
 	public String listar(Model model) {
-		List<Noticia> noticias = noticiaService.listar();
-		model.addAttribute("noticias", noticias);
+		model.addAttribute("noticias", noticiaService.listar());
 		return LISTAR_NOTICIAS;
 	}
 
 	@RequestMapping("editar/{id}")
 	public String editar(@PathVariable("id") Noticia noticia, Model model) {
-		List<Secao> secoes = secaoService.listar();
-		model.addAttribute("secoes", secoes);
+		model.addAttribute("secoes", secaoService.listar());
 		model.addAttribute("noticia", noticia);
 		return CADASTRAR_NOTICIAS;
 	}
@@ -76,15 +71,13 @@ public class NoticiasController {
 
 	@RequestMapping(value = "/jornalista/{id}", method = RequestMethod.GET)
 	public String listarNoticiasJornalistas(@PathVariable("id") Long id, Model model) {
-		List<Noticia> noticias = noticiaService.listarNoticiasJornalista(id);
-		model.addAttribute("noticias", noticias);
+		model.addAttribute("noticias", noticiaService.listarNoticiasJornalista(id));
 		return LISTAR_NOTICIAS;
 	}
 
 	@RequestMapping(value = "/secao/{id}", method = RequestMethod.GET)
 	public String listarNoticiasSecoes(@PathVariable("id") Long id, Model model) {
-		List<Noticia> noticiasPorSecao = noticiaService.listarNoticiaSecao(id);
-		model.addAttribute("noticias", noticiasPorSecao);
+		model.addAttribute("noticias", noticiaService.listarNoticiaSecao(id));
 		return LISTAR_NOTICIAS;
 	}
 

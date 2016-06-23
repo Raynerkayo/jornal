@@ -1,7 +1,5 @@
 package br.ufc.quixada.jornal.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import br.ufc.quixada.jornal.model.Classificado;
 import br.ufc.quixada.jornal.service.ClassificadoService;
 
@@ -18,15 +17,14 @@ import br.ufc.quixada.jornal.service.ClassificadoService;
 @RequestMapping("/classificados")
 public class ClassificadosController {
 
-	private static String CADASTRAR_CLASSIFICADOS = "classificado/CadastroClassificado";
-	private static String LISTAR_CLASSIFICADOS = "classificado/ListarClassificados";
-	private static String REDIRECT_LISTAR_CLASSIFICADOS = "redirect:classificados/todosClassificados";
+	private static String CADASTRAR_CLASSIFICADOS = "editor/CadastrarClassificado";
+	private static String LISTAR_CLASSIFICADOS = "editor/CadastrarClassificado";
 
 	@Autowired
 	private ClassificadoService classificadoService;
 
 	@RequestMapping(value = "/novo")
-	public String novo(Model model) {
+	public String novo(Model model, Classificado classificado) {
 		model.addAttribute(new Classificado());
 		return CADASTRAR_CLASSIFICADOS;
 	}
@@ -36,13 +34,12 @@ public class ClassificadosController {
 			HttpSession session) {
 		// verificar se é um editor
 		classificadoService.salvar(classificado);
-		return REDIRECT_LISTAR_CLASSIFICADOS;
+		return "redirect:/classificados/novo";
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listarClassificados(Model model) {
-		List<Classificado> classificados = classificadoService.listar();
-		model.addAttribute("classificados", classificados);
+		model.addAttribute("classificados", classificadoService.listar());
 		return LISTAR_CLASSIFICADOS;
 	}
 
