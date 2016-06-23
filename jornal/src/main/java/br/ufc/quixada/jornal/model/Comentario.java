@@ -15,18 +15,18 @@ public class Comentario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotEmpty(message = "Texto não pode ser vazio")
 	private String texto;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_usuario", referencedColumnName="id")
+	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
 	private Usuario usuario;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_noticia", referencedColumnName="id")
+	@JoinColumn(name = "id_noticia", referencedColumnName = "id")
 	private Noticia noticia;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -42,7 +42,20 @@ public class Comentario {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	
-	
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Noticia getNoticia() {
+		return noticia;
+	}
+
+	public void setNoticia(Noticia noticia) {
+		this.noticia = noticia;
+	}
 }

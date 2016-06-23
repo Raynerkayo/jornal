@@ -12,7 +12,7 @@ import br.ufc.quixada.jornal.securanca.Login;
 import br.ufc.quixada.jornal.service.UsuarioService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/login") 
 public class LoginController {
 
 	@Autowired
@@ -28,6 +28,7 @@ public class LoginController {
 		Usuario usuario = usuarioService.logar(loginForm.getLogin(), loginForm.getSenha());
 		if (usuario != null) {
 			session.setAttribute("usuarioLogado", usuario);
+			System.out.println(usuario.getPapeis().get(0).getPapelNome());
 			return "redirect:/papeis/listar";
 		}
 		return "redirect:/papeis/novo";

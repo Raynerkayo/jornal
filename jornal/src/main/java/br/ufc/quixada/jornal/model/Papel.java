@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,10 +17,7 @@ public class Papel {
 
 	@NotEmpty(message = "Este campo não pode ficar em branco!")
 	@Column(name = "papel_nome")
-	private String papelNome;
-	
-	@ManyToOne
-	private Usuario usuario;
+	private String papelNome; 
 
 	public Long getId() {
 		return id;
@@ -39,13 +35,6 @@ public class Papel {
 		this.papelNome = papelNome;
 	}
 
-	public Usuario getUsuarios() {
-		return usuario;
-	}
-
-	public void setUsuarios(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
+	 
 	
 }

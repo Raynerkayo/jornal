@@ -17,38 +17,37 @@ import br.ufc.quixada.jornal.service.ClassificadoService;
 @Controller
 @RequestMapping("/classificados")
 public class ClassificadosController {
-	
+
 	private static String CADASTRAR_CLASSIFICADOS = "classificado/CadastroClassificado";
-	private static String LISTAR_CLASSIFICADOS = "classificado/ListaDeClassificados";
-	private static String REDIRECT_LISTAR_CLASSIFICADOS = "redirect:classificados/todosClassificados"; 
-	
+	private static String LISTAR_CLASSIFICADOS = "classificado/ListarClassificados";
+	private static String REDIRECT_LISTAR_CLASSIFICADOS = "redirect:classificados/todosClassificados";
+
 	@Autowired
 	private ClassificadoService classificadoService;
-	
+
 	@RequestMapping(value = "/novo")
-	public String novo(Model model){
+	public String novo(Model model) {
 		model.addAttribute(new Classificado());
 		return CADASTRAR_CLASSIFICADOS;
 	}
-	
+
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public String salvar(@Validated Classificado classificado, Model model, RedirectAttributes attributes ,HttpSession session){
-		//verificar se é um editor
+	public String salvar(@Validated Classificado classificado, Model model, RedirectAttributes attributes,
+			HttpSession session) {
+		// verificar se é um editor
 		classificadoService.salvar(classificado);
 		return REDIRECT_LISTAR_CLASSIFICADOS;
 	}
-	
-	@RequestMapping(value = "/listarClassificados", method = RequestMethod.GET)
-	public String listarClassificados(Model model){
+
+	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	public String listarClassificados(Model model) {
 		List<Classificado> classificados = classificadoService.listar();
 		model.addAttribute("classificados", classificados);
 		return LISTAR_CLASSIFICADOS;
 	}
-	
-	@RequestMapping(value = "/comprar", method = RequestMethod.GET)
-	public String listaClassificado(){
+
+	@RequestMapping(value = "{id}/comprar", method = RequestMethod.GET)
+	public String listaClassificado() {
 		return null;
 	}
-	
-	//criar os que estão vendidos, em aberto.
 }

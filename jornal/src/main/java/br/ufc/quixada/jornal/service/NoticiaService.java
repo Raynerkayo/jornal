@@ -37,6 +37,11 @@ public class NoticiaService {
 		return noticiasSecao;
 	}
 	
+	public Noticia buscarNoticiaPorId(Long id){
+		Noticia noticia = noticiaRepository.findByIdLike(id);
+		return noticia;
+	}
+	
 	
 	
 }

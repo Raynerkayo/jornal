@@ -14,7 +14,9 @@
 			<th>SubTitulo</th>
 			<th>Texto</th>
 			<th>Data</th>
+			<th>Seção</th>
 			<th>Comentar Notícia</th>
+			<th><a th:href="@{/noticias/nova}">Nova</a></th>
 		</tr>
 		<tr th:each="noticia : ${noticias}">
 			<td th:text="${noticia.id}"></td>
@@ -22,10 +24,10 @@
 			<td th:text="${noticia.subTitulo}"></td>
 			<td th:text="${noticia.texto}"></td>
 			<td th:text="${{noticia.dataNoticia}}"></td>
+			<td th:text="${noticia.Secao.titulo}"></td>
+			<td><a th:href="@{/comentario/noticia/{id}(id=${noticia.id})}">Comentar</a></td>
 			<td><a th:href="@{/noticias/editar/{id}(id=${noticia.id})}">Editar</a></td>
 			<td><a th:href="@{/noticias/excluir/{id}(id=${noticia.id})}">Excluir</a></td>
-			<td><a th:href="@{/comentarios/novo/{id}(id=${noticia.id})}">Comentar</a></td>
-			<td><a th:href="@{/noticias/nova}">Nova</a></td>
 		</tr>
 	</table>
 </body>

@@ -11,14 +11,21 @@
 </head>
 <body>
 	<h2>NOTICIA</h2>
-	<form th:action="@{/noticias}" method="post" th:object="${noticia}">
+	<form th:action="@{/noticias/nova}" method="post" th:object="${noticia}">
 		<input type="hidden" th:field="*{id}"/>
 		Titulo: <input type="text" id="titulo" th:field="*{titulo}"/> <br />
 		SubTitulo: <input type="text" id="subTitulo" th:field="*{subTitulo}"/> <br />
 		Texto: <input type="text" id="texto" th:field="*{texto}" /> <br />
 		Data da Noticia:<input type="text" id="dataNoticia" th:field="*{dataNoticia}"
 						data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
-						data-date-autoclose="true"  data-date-today-highlight="true" data-date-orientation="bottom"/>
+						data-date-autoclose="true"  data-date-today-highlight="true" data-date-orientation="bottom"/><br/>
+		Seções	<select  name="secao" th:field="*{secao}">
+					<option th:each="secao : ${secoes}" 
+							id="secao"
+							th:value="${secao.id}" 
+							th:text="${secao.titulo}"></option>
+				</select>
+
 		<input type="submit" value="SALVAR"/> 
 	</form>
 	

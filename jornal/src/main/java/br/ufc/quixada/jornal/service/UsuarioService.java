@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufc.quixada.jornal.model.Papel;
 import br.ufc.quixada.jornal.model.Usuario;
+import br.ufc.quixada.jornal.repository.PapelRepository;
 import br.ufc.quixada.jornal.repository.UsuarioRepository;
 import br.ufc.quixada.jornal.securanca.Criptografia;
 
@@ -18,6 +20,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired 
+	private PapelRepository papelRepository;
 
 	@Autowired
 	private Criptografia criptografar;
@@ -53,6 +58,14 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findByLoginLike(login);
 		if (usuario != null) {
 			if (criptografar.criptografarSenha(senha).equals(usuario.getSenha())) {
+				Papel papeisId = papelRepository.findByPapelIdUsuario(usuario.getId());
+				Papel papel = new Papel();
+				if(papeisId.getId() == 1L){
+					papel.setId(papeisId.getId());
+					papel.setPapelNome("EDITOR");
+				}
+				usuario.setPapeis(papel);
+				System.out.println(usuario.getPapeis().get(0).getPapelNome());
 				return usuario;
 			}
 		}

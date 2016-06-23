@@ -31,8 +31,11 @@ public class ComentarioService {
 	}
 	
 	public List<Comentario> comentarioNoticiaUsuario(Usuario usuario, Noticia noticia){
-		List<Comentario> comentarioNoticiaUsuarios = comentarioRepository.findByUsuarioAndNoticiaLike(usuario.getId(), noticia.getId());
-		return comentarioNoticiaUsuarios;
+		return comentarioRepository.findByUsuarioAndNoticiaContains(usuario.getId(), noticia.getId());
+	}
+	
+	public List<Comentario> comentariosNoticiaId(Long idNoticia){
+		return comentarioRepository.findByNoticiaLike(idNoticia);
 	}
 	
 }

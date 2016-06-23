@@ -40,7 +40,7 @@ public class UsuarioController {
 		/*
 		 * Lembrar de verificar se já existe um login com o novo login
 		 * */
-		cadastroUsuarioService.salvar(usuario); 
+		cadastroUsuarioService.salvar(usuario);  
 		attributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso.");
 		return "redirect:/usuarios/novo";
 	}

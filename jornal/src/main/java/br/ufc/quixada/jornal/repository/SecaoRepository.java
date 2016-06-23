@@ -6,6 +6,6 @@ import br.ufc.quixada.jornal.model.Secao;
 
 public interface SecaoRepository extends JpaRepository<Secao, Long>{
 
-	
+	Secao findByIdLike(Long id);
 	
 }

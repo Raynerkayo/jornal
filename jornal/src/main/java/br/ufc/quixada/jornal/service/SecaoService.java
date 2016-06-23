@@ -19,12 +19,15 @@ public class SecaoService{
 	}
 
 	public List<Secao> listar() {
-		List<Secao> secoes = secaoRepository.findAll();
-		return secoes;
+		return secaoRepository.findAll();
 	}
 	
 	public void excluir(Long id){
 		secaoRepository.delete(id);
+	}
+	
+	public Secao buscarSecaoId(Long id){
+		return secaoRepository.findByIdLike(id);
 	}
 	
 }

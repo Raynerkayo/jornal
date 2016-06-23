@@ -21,7 +21,7 @@ import br.ufc.quixada.jornal.service.SecaoService;
 @RequestMapping("/secoes")
 public class SecaoController {
 
-	private static String LISTAR_SECOES = "secao/ListarSecoes";
+	private static String LISTAR_SECOES = "index";
 	private static String CADASTRAR_SECAO = "secao/CadastrarSecao";
 	
 	@Autowired

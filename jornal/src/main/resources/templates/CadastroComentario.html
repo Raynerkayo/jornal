@@ -7,8 +7,7 @@
 </head>
 <body>
 	<h2>Inserir Papel</h2>
-	<form th:action="@{/comentarios}" method="post" th:object="${texto}">
-		<input type="hidden" th:field="*{id}"/>
+	<form th:action="@{/comentario/noticia/{id}(id=${noticia.id})}" method="post" th:object="${comentario}">
 		Texto: <input type="text" id="texto" th:field="*{texto}"/>
 		<input type="submit" value="SALVAR"/>
 	</form>
