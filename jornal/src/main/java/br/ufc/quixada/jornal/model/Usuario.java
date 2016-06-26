@@ -47,6 +47,9 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuario", targetEntity = Classificado.class)
 	private List<Classificado> classificados;
+	
+	@OneToMany(mappedBy = "usuario", targetEntity = Oferta.class)
+	private List<Oferta> ofertas;
 
 	@ManyToMany // pega o id_papel da table papel
 	@JoinTable(name = "papel_usuario", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_papel", referencedColumnName = "id_papel"))

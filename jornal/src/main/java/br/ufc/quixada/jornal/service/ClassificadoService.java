@@ -9,7 +9,7 @@ import br.ufc.quixada.jornal.model.Classificado;
 import br.ufc.quixada.jornal.repository.ClassificadoRepository;
 
 @Service
-public class ClassificadoService {
+public class ClassificadoService { 
 
 	@Autowired
 	private ClassificadoRepository classificadoRepository;
@@ -19,8 +19,11 @@ public class ClassificadoService {
 	}
 
 	public List<Classificado> listar() {
-		List<Classificado> classificados = classificadoRepository.findAll();
-		return classificados;
+		return classificadoRepository.findAll();
+	}
+	
+	public Classificado buscarPorId(Long id){
+		return classificadoRepository.findByIdLike(id);
 	}
 
 }

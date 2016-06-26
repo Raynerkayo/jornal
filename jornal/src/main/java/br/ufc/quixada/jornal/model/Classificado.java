@@ -1,6 +1,8 @@
 package br.ufc.quixada.jornal.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
@@ -46,12 +49,6 @@ public class Classificado {
 	@Column(nullable = false)
 	private String telefone;
 	
-	@NotNull(message= "Dê uma oferta")
-	@DecimalMin(value="0.00", message="Valor não pode ser menor que R$ 0,00")
-	@DecimalMax(value="99999999.99", message="Estourou o limite")
-	@NumberFormat(pattern = "#,##0.00")
-	private float melhorOferta;
-	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataOferta;
@@ -59,6 +56,10 @@ public class Classificado {
 	@ManyToOne
 	@JoinColumn(name="id_usuario", referencedColumnName="id")
 	private Usuario usuario;	 
+	
+	//na anotação OneToMany, o mappedBy = ao nome da classe que fica o mappedBy.
+	@OneToMany(mappedBy = "classificado", targetEntity = Oferta.class)
+	private List<Oferta> oferta = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -100,14 +101,6 @@ public class Classificado {
 		this.telefone = telefone;
 	}
 
-	public float getMelhorOferta() {
-		return melhorOferta;
-	}
-
-	public void setMelhorOferta(float melhorOferta) {
-		this.melhorOferta = melhorOferta;
-	}
-
 	public Date getDataOferta() {
 		return dataOferta;
 	}
@@ -122,6 +115,14 @@ public class Classificado {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Oferta> getOferta() {
+		return oferta;
+	}
+
+	public void setOferta(List<Oferta> oferta) {
+		this.oferta = oferta;
 	}
 	
 }

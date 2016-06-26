@@ -20,8 +20,8 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private PapelRepository papelRepository;
 
 	@Autowired
@@ -60,7 +60,7 @@ public class UsuarioService {
 			if (criptografar.criptografarSenha(senha).equals(usuario.getSenha())) {
 				Papel papeisId = papelRepository.findByPapelIdUsuario(usuario.getId());
 				Papel papel = new Papel();
-				if(papeisId.getId() == 1L){
+				if (papeisId.getId() == 1L) {
 					papel.setId(papeisId.getId());
 					papel.setPapelNome("EDITOR");
 				}
@@ -71,11 +71,8 @@ public class UsuarioService {
 		}
 		return null;
 	}
-	/*
-	 * public Usuario logar(String login, String senha) { Usuario usuario =
-	 * usuarioRepository.findByLoginLike(login); if(usuario != null){
-	 * if(criptografar.criptografarSenha(senha).equals(usuario.getSenha())){
-	 * return usuario; } } return null; }
-	 */
 
+	public Usuario buscarPorId(Long usuario) {
+		return usuarioRepository.findByIdLike(usuario);
+	}
 }

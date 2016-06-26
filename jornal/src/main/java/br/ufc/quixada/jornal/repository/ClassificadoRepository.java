@@ -6,4 +6,6 @@ import br.ufc.quixada.jornal.model.Classificado;
 
 public interface ClassificadoRepository extends JpaRepository<Classificado, Long>{
 
+	Classificado findByIdLike(Long id);
+	
 }
