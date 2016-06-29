@@ -1,31 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<meta charset="UTF-8" />
-<title>Inserir Papel</title>
+<meta charset="UTF-8"/>
+	<title>Home</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-	<h2>Todas as Seções</h2>
-	<table border="1">
-		<tr>
-			<th>Titulos</th>
-			<th>Descrição</th>
-			<th>Editar</th>
-			<th>Excluir</th>
-		</tr>
-		<tr th:each="secao : ${secoes}">
-			<td ><a th:href="@{/noticias/secao/{id}(id=${secao.id})}" th:text="${secao.titulo}"></a></td>
-			<td th:text="${secao.descricao}"></td>
-			<td><a th:href="@{/secoes/editar/{id}(id=${secao.id})}">Editar</a></td>
-			<td><a th:href="@{/secoes/excluir/{id}(id=${secao.id})}">Excluir</a></td>
-		</tr>
-	</table>
+	<div class="container">
+		<h1>Seções</h1>
 
-	<a th:href="@{/noticias/listar}">Ver todas as noticias</a>
-	<a th:href="@{/secoes/listar}">Ver todas as seções</a>
-	<a th:href="@{/usuarios/novo}">Cadastrar-se</a>
-	<a th:href="@{/login/efetuarLogin}">Entrar no sistema</a>
-	<a th:href="@{/classificados/listar}">Ver classificados</a>
+		<div id="Carrosel" class="carousel slide" data-ride="carousel" data-interval="3000">
+			<ol class="carousel-indicators" th:each="secao : ${secoes}" >
+				<li data-target="#Carrosel" data-slide-to=""></li>
+			</ol>
+			<!--Colocar slides-->
+			<div class="carousel-inner">
+				<div th:each="secao : ${secoes}" class="item" 
+					th:classappend="${secao.id==9}?'active'">
+					<a th:href="@{/noticias/secao/{id}(id=${secao.id})}">
+						<img th:src="@{https://unsplash.it/1280/420?random}"/>
+					</a>
+					<div class="carousel-caption">
+						<h1 th:text="${secao.titulo}"><a class="btn btn-link" th:href="@{/noticias/secao/{id}(id=${secao.id})}" th:text="${secao.titulo}"></a></h1>
+						<p th:text="${secao.descricao}"></p>
+					</div>
+				</div>
+			</div>
+			<a class="left carousel-control" href="#Carrosel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			<a class="right carousel-control" href="#Carrosel" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		</div>
+		<div>
+		<form method="POST" enctype="multipart/form-data" action="/">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+	</div>
+
+	<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file.href}" th:text="${file.rel}"></a>
+			</li>
+		</ul>
+	</div>
+	</div>
+<script th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.pt-BR.min.js}"></script>
+<script th:src="@{/js/jquery.maskMoney.min.js}"></script>
+<script th:src="@{/js/cobranca.js}"></script>
 </body>
 </html>

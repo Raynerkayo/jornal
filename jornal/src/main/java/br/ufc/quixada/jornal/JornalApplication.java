@@ -27,7 +27,4 @@ public class JornalApplication {
 	public String home(){
 		return "redirect:/secoes/listar";
 	}
-	
-	
-	
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Todas as ofertas</title>
+</head>
+<body>
+	<h2>Todas as ofertas</h2>
+	<table border="1">
+		<tr>
+			<th>Titulo</th>
+			<th>Texto</th>
+			<th>Preço inicial</th>
+			<th>Telefone para contato</th>
+			<th>Melhor oferta</th>
+			<th>Data da melhor oferta</th>
+			<th>Dono da melhor oferta</th>
+			<th><a th:href="@{/noticias/nova}">Nova</a></th>
+		</tr>
+		<tr th:each="noticia : ${noticias}">
+			<td th:text="${noticia.id}"></td>
+			<td th:text="${noticia.titulo}"></td>
+			<td th:text="${noticia.subTitulo}"></td>
+			<td th:text="${noticia.texto}"></td>
+			<td th:text="${{noticia.dataNoticia}}"></td>
+			<td th:text="${noticia.Secao.titulo}"></td>
+			<td><a th:href="@{/noticias/editar/{id}(id=${noticia.id})}">Editar</a></td>
+			<td><a th:href="@{/noticias/excluir/{id}(id=${noticia.id})}">Excluir</a></td>
+		</tr>
+	</table>
+</body>
+</html>

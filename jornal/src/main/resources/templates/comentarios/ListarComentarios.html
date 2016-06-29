@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Comentário</title>
+</head>
+<body>
+
+	<table border="1">
+		<tr>
+			<th>Comentários</th>
+		</tr>
+		<tr th:each="noticia : ${noticias}">
+			<td th:text="noticia.texto"></td>
+		</tr>	
+		<tr th:each="comentario : ${comentarios}">
+			<td th:text="${comentario.texto}"></td>			
+		</tr>
+		
+	</table>
+
+</body>
+</html>
