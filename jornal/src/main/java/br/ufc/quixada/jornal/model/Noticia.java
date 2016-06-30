@@ -43,6 +43,9 @@ public class Noticia {
 	@Lob
 	private String texto;
 	
+	@Lob
+	private String imagem;
+	
 	@ManyToOne
 	@JoinColumn(name="id_usuario", referencedColumnName="id")
 	private Usuario usuario;
@@ -113,7 +116,15 @@ public class Noticia {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public void setImagem(String webPath) {
+		this.imagem = webPath;
 	}	
+	
+	public String getImagem(){
+		return imagem;
+	}
 	
 }
 	

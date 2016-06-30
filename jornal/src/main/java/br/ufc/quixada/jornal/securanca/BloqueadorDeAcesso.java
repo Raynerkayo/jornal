@@ -42,23 +42,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
-public class Interceptador extends HandlerInterceptorAdapter{
+public class BloqueadorDeAcesso extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		
-		String uri = request.getRequestURI();
-		if(uri.endsWith("/") ||
-		   uri.endsWith("login/efetuarLogin")){
-			return true;
-		}
-		
 		if(request.getSession().getAttribute("usuarioLogado")!=null){
 			return true;
 		}
 		
-		response.sendRedirect("efetuarLogin");
+		response.sendRedirect("/login/efetuarLogin");
 		return false;
 	}
 }
