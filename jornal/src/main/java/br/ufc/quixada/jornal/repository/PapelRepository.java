@@ -12,7 +12,7 @@ public interface PapelRepository extends JpaRepository<Papel, Long> {
 
 	/*@Query(value = "select pu.*, p.* from papel_usuario pu, papel p where id_usuario = ?", nativeQuery = true)
 	Papel findByPapelIdUsuario(Long idUsuario);*/
-	@Query(value = "select pu.*, p.* from papel_usuario pu, papel p where pu.id_usuario = ?", nativeQuery = true)
+	@Query(value = "select pu.*, p.* from papel_usuario pu, papel p where pu.id_usuario = ? and pu.id_papel = p.id_papel", nativeQuery = true)
 	Papel findByPapelIdUsuario(Long id);
 	
 }

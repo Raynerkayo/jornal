@@ -12,8 +12,12 @@ import br.ufc.quixada.jornal.securanca.Login;
 import br.ufc.quixada.jornal.service.UsuarioService;
 
 @Controller
-@RequestMapping("/login") 
+@RequestMapping("/login")
 public class LoginController {
+
+	private static String JORNALISTA = "jornalista";
+	private static String LEITOR = "leitor";
+	private static String EDITOR = "editor";
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -26,12 +30,29 @@ public class LoginController {
 	@RequestMapping(value = "/efetuarLogin", method = RequestMethod.POST)
 	public String efetuarLogin(Login loginForm, HttpSession session) {
 		Usuario usuario = usuarioService.logar(loginForm.getLogin(), loginForm.getSenha());
+
 		if (usuario != null) {
 			session.setAttribute("usuarioLogado", usuario);
-			System.out.println(usuario.getPapeis().get(0).getPapelNome());
-			return "redirect:/papeis/listar";
+			if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase(EDITOR)) {
+				System.out.println(">>>>" + usuario.getPapeis().get(0).getPapelNome());
+				return "redirect:/editor/administracao";
+			}
+			if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase(JORNALISTA)) {
+				System.out.println(">>>>" + usuario.getPapeis().get(0).getPapelNome());
+				return "redirect:/jornalista/administracao";
+			}
+			if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase(LEITOR)) {
+				System.out.println(usuario.getPapeis().get(0).getPapelNome());
+				return "redirect:/secoes/listar";
+			}
 		}
-		return "redirect:/papeis/novo";
+		return "redirect:/login/efetuarLogin";
+	}
+
+	@RequestMapping(value = "/logout")
+	public String efetuarLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login/efetuarLogin";
 	}
 
 	/*

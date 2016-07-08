@@ -1,9 +1,12 @@
 package br.ufc.quixada.jornal.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufc.quixada.jornal.model.Classificado;
 import br.ufc.quixada.jornal.model.Oferta;
 import br.ufc.quixada.jornal.repository.OfertaRepository;
 
@@ -16,11 +19,26 @@ public class OfertaService{
 	public void salvar(Oferta oferta){
 		ofertaRepository.save(oferta);
 	}
-
-	public Oferta valorOfertasAnterior() {
-		return ofertaRepository.valorOfertasAnterior();
+	
+	public Oferta valorOfertaAtual(Long idClassificado) {
+		return ofertaRepository.valorOfertaAtual(idClassificado);
 	}
 	
+	/*public List<Oferta> buscarOfertasPorClassificado(Long id){
+		return ofertaRepository.findByClassificadoLike(id); 
+	}*/
+	
+	public List<Oferta> listar(){
+		return ofertaRepository.findAll();
+	}
+	
+	public Oferta listar(Classificado id){
+		return ofertaRepository.findByClassificadoLike(id);
+	}
+
+	public void remover(Long melhorOferta) {
+		ofertaRepository.delete(melhorOferta);
+	}
 	
 	
 }

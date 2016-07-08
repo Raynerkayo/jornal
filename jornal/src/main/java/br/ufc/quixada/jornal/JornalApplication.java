@@ -40,14 +40,7 @@ public class JornalApplication {
 		
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
-			registry.addInterceptor(autorizadorInteceptor)
-			.addPathPatterns("/noticias/nova")
-			.addPathPatterns("/noticias/excluir/*")
-			.addPathPatterns("/noticias/editar/*")
-			.addPathPatterns("/secoes/nova")
-			.addPathPatterns("/secoes/editar/*")
-			.addPathPatterns("/secoes/excluir/*")
-			.excludePathPatterns("/noticias**");
+			registry.addInterceptor(autorizadorInteceptor); 
 		}
 
 	}

@@ -3,6 +3,7 @@ package br.ufc.quixada.jornal.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,12 +51,12 @@ public class Noticia {
 	@JoinColumn(name="id_usuario", referencedColumnName="id")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "noticia", targetEntity = Comentario.class)
+	@OneToMany(mappedBy = "noticia", targetEntity = Comentario.class, cascade=CascadeType.REMOVE)
 	private List<Comentario> comentarios;
 	
 	@NotNull(message="Data de vencimento é obrigatória.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE) 
 	private Date dataNoticia;
 	
 	@OneToOne(fetch=FetchType.LAZY)

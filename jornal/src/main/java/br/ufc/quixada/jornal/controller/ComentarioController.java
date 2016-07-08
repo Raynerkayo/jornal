@@ -31,8 +31,8 @@ public class ComentarioController {
 	private static String LISTAR_COMENTARIOS = "comentarios/ListarComentarios";
 
 	@RequestMapping(value = "/noticia/{id}", method = RequestMethod.GET)
-	public String novo(@PathVariable("id") Long id, Model model, Comentario comentario) {
-		model.addAttribute("noticia", noticiaService.buscarNoticiaPorId(id));
+	public String novo(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("noticia", noticiaService.buscarNoticiaPorIdNoticia(id));
 		model.addAttribute(new Comentario());
 		return FAZER_COMENTARIOS;
 	}
@@ -40,9 +40,8 @@ public class ComentarioController {
 	@RequestMapping(value = "/noticia/{id}", method = RequestMethod.POST)
 	public String salvar(@PathVariable("id") Long id, Comentario comentario, HttpSession session) {
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		Noticia noticia = noticiaService.buscarNoticiaPorId(id);
 		if (usuario != null) {
-			comentario.setNoticia(noticia);
+			comentario.setNoticia(noticiaService.buscarNoticiaPorIdNoticia(id));
 			comentario.setUsuario(usuario);
 			comentarioService.salvar(comentario);
 			return "redirect:/noticias/listar";

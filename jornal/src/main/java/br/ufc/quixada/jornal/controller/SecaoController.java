@@ -63,7 +63,4 @@ public class SecaoController {
 		model.addAttribute(secao);
 		return CADASTRAR_SECAO;
 	}
-	
-	
-	
 }

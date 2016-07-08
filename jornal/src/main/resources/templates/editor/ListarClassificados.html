@@ -6,28 +6,39 @@
 <title>Todas as ofertas</title>
 </head>
 <body>
-	<h2>Todas as ofertas</h2>
-	<table border="1">
-		<tr>
-			<th>Titulo</th>
-			<th>Texto</th>
-			<th>Preço inicial</th>
-			<th>Telefone para contato</th>
-			<th>Melhor oferta</th>
-			<th>Data da melhor oferta</th>
-			<th>Dono da melhor oferta</th>
-			<th><a th:href="@{/noticias/nova}">Nova</a></th>
-		</tr>
-		<tr th:each="noticia : ${noticias}">
-			<td th:text="${noticia.id}"></td>
-			<td th:text="${noticia.titulo}"></td>
-			<td th:text="${noticia.subTitulo}"></td>
-			<td th:text="${noticia.texto}"></td>
-			<td th:text="${{noticia.dataNoticia}}"></td>
-			<td th:text="${noticia.Secao.titulo}"></td>
-			<td><a th:href="@{/noticias/editar/{id}(id=${noticia.id})}">Editar</a></td>
-			<td><a th:href="@{/noticias/excluir/{id}(id=${noticia.id})}">Excluir</a></td>
-		</tr>
-	</table>
+	<div th:each="classificado : ${classificados}">
+		<input type="hidden" th:value="${classificado.id}"/>
+		<h1 th:text="${classificado.titulo}"></h1>
+		<p th:text="${classificado.texto}"></p>
+		<b>Preço inicial:</b><p th:text="${{classificado.preco}}"></p>
+		<b>Telefone Para contato:</b><p th:text="${classificado.telefone}"></p>
+		<h3>Melhor oferta</h3>
+		<p th:text="${classificado.oferta.valorOferta}"></p>
+		<h3>Data da melhor oferta</h3>
+		<p th:text="${{classificado.oferta.dataOferta}}"></p>
+		<h3>Dono da melhor Oferta</h3>
+		<p th:text="${classificado.oferta.Usuario.nomeCompleto}"></p>
+		
+		<h3>Você tem interesse neste classificado? Você pode comprá-lo.</h3>
+		<div>
+			<form th:action="@{/ofertas/nova}" method="post" >
+				<input type="hidden" th:value="${classificado.id}" th:name="idClassificado"/>
+				Valor da Oferta: <input type="text" th:value="${valorOferta}" th:name="valorOferta"/> <br />
+				<input type="submit" value="Comprar"/>
+			</form>
+		</div>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>

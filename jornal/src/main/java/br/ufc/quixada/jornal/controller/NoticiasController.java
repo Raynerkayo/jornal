@@ -26,6 +26,8 @@ public class NoticiasController {
 
 	private static final String CADASTRAR_NOTICIAS = "noticias/CadastrarNoticias";
 	private static final String LISTAR_NOTICIAS = "noticias/ListarNoticias";
+	private static final String LISTAR_MANCHETES = "noticias/ListarManchetes";
+	private static final String EDITOR = "editor";
 
 	@Autowired
 	private ServletContext servletContext;
@@ -46,25 +48,37 @@ public class NoticiasController {
 	@RequestMapping(value = "/nova", method = RequestMethod.POST)
 	public String salvar(Noticia noticia, Model model, HttpSession session,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
-		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		noticia.setUsuario(usuario);
-		if (file != null && !file.isEmpty()) {
 
-			String path = servletContext.getRealPath("/") + "resources/imagens/" + noticia.getTitulo() + ".png";
-			FileUtil.saveFile(path, file);
-			noticia.setImagem(path);
+		Usuario usuarioDaSessao = (Usuario) session.getAttribute("usuarioLogado");
+
+		if (usuarioDaSessao == null) {
+			return "PermissaoNegada";
 		}
-		// Caso modifique para o usuário não precisar informar a Data.
-		noticia.setDataNoticia(new Date());
-		noticia.setSecao(secaoService.buscarSecaoId(noticia.getSecao().getId()));
+		if (usuarioDaSessao.getPapeis().get(0).getPapelNome().equalsIgnoreCase("JORNALISTA")) {
+			noticia.setUsuario(usuarioDaSessao);
+			if (file != null && !file.isEmpty()) {
+				String path = servletContext.getRealPath("/") + "resources/imagens/" + noticia.getTitulo() + ".png";
+				FileUtil.saveFile(path, file);
+			}
+			noticia.setDataNoticia(new Date());
+			noticia.setSecao(secaoService.buscarSecaoId(noticia.getSecao().getId()));
 
-		noticiaService.salvar(noticia);
-		return "redirect:/noticias/listar";
+			noticiaService.salvar(noticia);
+			return "redirect:/noticias/listar";
+		} else {
+			return "PermissaoNegada";
+		}
 	}
 
 	@RequestMapping("/listar")
 	public String listar(Model model) {
 		model.addAttribute("noticias", noticiaService.listar());
+		return LISTAR_NOTICIAS;
+	}
+
+	@RequestMapping("/listar/{id}")
+	public String listarPorId(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("noticias", noticiaService.buscarNoticiaPorId(id));
 		return LISTAR_NOTICIAS;
 	}
 
@@ -84,21 +98,27 @@ public class NoticiasController {
 	// }
 
 	@RequestMapping("excluir/{id}")
-	public String excluir(@PathVariable("id") Long id) {
-		noticiaService.excluir(id);
-		return "redirect:/noticias/listar";
+	public String excluir(@PathVariable("id") Long id, HttpSession session) {
+		Usuario usuarioDaSessao = (Usuario) session.getAttribute("usuarioLogado");
+		Noticia noticia = noticiaService.buscarNoticiaPorIdNoticia(id);
+		if (noticia.getUsuario().getId() == usuarioDaSessao.getId()
+				|| usuarioDaSessao.getPapeis().get(0).getPapelNome().equalsIgnoreCase(EDITOR)) {
+			noticiaService.excluir(id);
+			return "redirect:/noticias/listar";
+		}
+		return "PermissaoNegada";
 	}
 
-	@RequestMapping(value = "/jornalista/{id}", method = RequestMethod.GET)
-	public String listarNoticiasJornalistas(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("noticias", noticiaService.listarNoticiasJornalista(id));
-		return LISTAR_NOTICIAS;
-	}
+//	@RequestMapping(value = "/jornalista/{id}", method = RequestMethod.GET)
+//	public String listarNoticiasJornalistas(@PathVariable("id") Long id, Model model) {
+//		model.addAttribute("noticias", noticiaService.listarNoticiasJornalista(id));
+//		return LISTAR_NOTICIAS;
+//	}
 
 	@RequestMapping(value = "/secao/{id}", method = RequestMethod.GET)
 	public String listarNoticiasSecoes(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("noticias", noticiaService.listarNoticiaSecao(id));
-		return LISTAR_NOTICIAS;
+		return LISTAR_MANCHETES;
 	}
 
 }

@@ -58,15 +58,13 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findByLoginLike(login);
 		if (usuario != null) {
 			if (criptografar.criptografarSenha(senha).equals(usuario.getSenha())) {
-				Papel papeisId = papelRepository.findByPapelIdUsuario(usuario.getId());
-				Papel papel = new Papel();
-				if (papeisId.getId() == 1L) {
-					papel.setId(papeisId.getId());
-					papel.setPapelNome("EDITOR");
-				}
+				Papel papel = papelRepository.findByPapelIdUsuario(usuario.getId());
+				if(papel == null){
+					return usuario;
+				}else{
 				usuario.setPapeis(papel);
-				System.out.println(usuario.getPapeis().get(0).getPapelNome());
 				return usuario;
+				}
 			}
 		}
 		return null;

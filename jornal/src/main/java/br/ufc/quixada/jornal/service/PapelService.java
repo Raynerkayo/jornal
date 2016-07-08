@@ -28,9 +28,10 @@ public class PapelService {
 	}
 
 	public Papel recupera(Long id) {
-		Papel papel = papelRepository.findOne(id);
+		Papel papel = papelRepository.findByPapelIdUsuario(id);
 		return papel;
 	}
+	
 	
 	/*public Papel papelUsuario(Long idUsuario){
 		//Papel papeis = papelRepository.findByPapelIdUsuario(idUsuario);

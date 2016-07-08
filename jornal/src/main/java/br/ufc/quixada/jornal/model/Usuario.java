@@ -3,6 +3,7 @@ package br.ufc.quixada.jornal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Usuario {
 	private String email;
 
 	// mapeando os comentários a partir do atributo usuário na classe comentário
-	@OneToMany(mappedBy = "usuario", targetEntity = Comentario.class)
+	@OneToMany (cascade={CascadeType.ALL,CascadeType.REMOVE},mappedBy = "usuario", targetEntity = Comentario.class)
 	private List<Comentario> comentarios;
 
 	@OneToMany(mappedBy = "usuario", targetEntity = Noticia.class)

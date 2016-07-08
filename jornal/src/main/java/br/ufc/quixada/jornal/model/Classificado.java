@@ -1,8 +1,6 @@
 package br.ufc.quixada.jornal.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
@@ -58,8 +56,8 @@ public class Classificado {
 	private Usuario usuario;	 
 	
 	//na anotação OneToMany, o mappedBy = ao nome da classe que fica o mappedBy.
-	@OneToMany(mappedBy = "classificado", targetEntity = Oferta.class)
-	private List<Oferta> oferta = new ArrayList<>();
+	@OneToOne(mappedBy = "classificado", targetEntity = Oferta.class)
+	private Oferta oferta;
 
 	public Long getId() {
 		return id;
@@ -117,11 +115,11 @@ public class Classificado {
 		this.usuario = usuario;
 	}
 
-	public List<Oferta> getOferta() {
+	public Oferta getOferta() {
 		return oferta;
 	}
 
-	public void setOferta(List<Oferta> oferta) {
+	public void setOferta(Oferta oferta) {
 		this.oferta = oferta;
 	}
 	

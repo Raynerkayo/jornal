@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Todas as notícias</title>
+</head>
+<body>
+	<h2>Todas as notícias</h2>
+	<table border="1">
+		<tr>
+			<th>Titulo</th>
+			<th>SubTitulo</th>
+			<th>Ver noticia</th>
+		</tr>
+		<tr th:each="noticia : ${noticias}">
+			<td th:text="${noticia.titulo}"></td>
+			<td th:text="${noticia.subTitulo}"></td>
+			<td><a th:href="@{/noticias/listar/{idNoticia}(idNoticia=${noticia.id})}">Ver toda a notícia</a></td>
+		</tr>
+	</table>
+</body>
+</html>
