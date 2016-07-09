@@ -6,6 +6,7 @@
 <title>Todas as ofertas</title>
 </head>
 <body>
+<!-- Vai dar problema quando vier um classsificado sem oferta. Lembrar de fazer o if do thymeleaf -->
 	<div th:each="classificado : ${classificados}">
 		<input type="hidden" th:value="${classificado.id}"/>
 		<h1 th:text="${classificado.titulo}"></h1>
@@ -13,7 +14,7 @@
 		<b>Preço inicial:</b><p th:text="${{classificado.preco}}"></p>
 		<b>Telefone Para contato:</b><p th:text="${classificado.telefone}"></p>
 		<h3>Melhor oferta</h3>
-		<p th:text="${classificado.oferta.valorOferta}"></p>
+		<p th:text="${{classificado.oferta.valorOferta}}"></p>
 		<h3>Data da melhor oferta</h3>
 		<p th:text="${{classificado.oferta.dataOferta}}"></p>
 		<h3>Dono da melhor Oferta</h3>
@@ -29,16 +30,6 @@
 		</div>
 		
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 </body>
 </html>

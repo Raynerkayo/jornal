@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.ufc.quixada.jornal.model.Noticia;
+import br.ufc.quixada.jornal.model.Usuario;
 
 public interface NoticiaRepository extends JpaRepository<Noticia, Long>{
 
@@ -16,7 +17,10 @@ public interface NoticiaRepository extends JpaRepository<Noticia, Long>{
 	@Query(value = "SELECT * FROM noticia WHERE id_secao = ?", nativeQuery = true)
 	List<Noticia> findByNoticiaSecao(Long id);
 	
-	List<Noticia> findByIdLike(Long id);
+	
+	Noticia findByIdLike(Long id);
+
+	List<Noticia> findByUsuarioLike(Usuario usuarioLogado);
 	
 /*	select p.papel_nome 
 	from usuario u, papel p, papel_usuario pu 

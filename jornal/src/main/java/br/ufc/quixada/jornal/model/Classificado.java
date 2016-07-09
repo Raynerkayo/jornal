@@ -55,7 +55,6 @@ public class Classificado {
 	@JoinColumn(name="id_usuario", referencedColumnName="id")
 	private Usuario usuario;	 
 	
-	//na anotação OneToMany, o mappedBy = ao nome da classe que fica o mappedBy.
 	@OneToOne(mappedBy = "classificado", targetEntity = Oferta.class)
 	private Oferta oferta;
 

@@ -24,8 +24,8 @@ public class ComentarioService {
 		return comentarioRepository.findByComentarioIdUsuario(idUsuario);
 	}
 
-	public List<Comentario> findByComentarioNoticia(Long idNoticia) {
-		return comentarioRepository.findByComentarioIdNoticia(idNoticia);
+	public List<Comentario> findByComentarioNoticia(Noticia idNoticia) {
+		return comentarioRepository.findByNoticiaLike(idNoticia);
 	}
 
 	public List<Comentario> comentarioNoticiaUsuario(Usuario usuario, Noticia noticia) {
@@ -35,5 +35,6 @@ public class ComentarioService {
 	public List<Comentario> comentariosNoticiaId(Noticia idNoticia) {
 		return comentarioRepository.findByNoticiaLike(idNoticia);
 	}
+	
 
 }

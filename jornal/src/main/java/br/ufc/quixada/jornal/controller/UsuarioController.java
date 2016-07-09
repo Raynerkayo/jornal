@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +34,7 @@ public class UsuarioController {
 
 	@Autowired
 	private PapelService papelService;
-	
+
 	@Autowired
 	private ServletContext servletContext;
 
@@ -47,8 +46,8 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes,
-			HttpSession session, @RequestParam(value="image",required=false) MultipartFile image) {
+	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes, HttpSession session,
+			@RequestParam(value = "image", required = false) MultipartFile image) {
 		if (errors.hasErrors()) {
 			return CADASTRO_USUARIO;
 		}
@@ -57,15 +56,17 @@ public class UsuarioController {
 		 */
 
 		Usuario usuarioSessao = (Usuario) session.getAttribute("usuarioLogado");
-		if(image!=null && !image.isEmpty()){
-			String path = servletContext.getContextPath().concat("/")+"resources/images/"+usuario.getLogin()+".png";
+		if (image != null && !image.isEmpty()) {
+			String path = servletContext.getContextPath().concat("/") + "resources/images/" + usuario.getLogin()
+					+ ".png";
 			UploadUtil.saveFile(path, image);
 		}
 		if (usuarioSessao == null) {
 			if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("leitor")) {
 				cadastroUsuarioService.salvar(usuario);
-				System.out.println("Salvou " + usuario.getNomeCompleto() + " que é " + usuario.getPapeis().get(0).getPapelNome());
-				return "redirect:/usuarios/novo"; 
+				System.out.println(
+						"Salvou " + usuario.getNomeCompleto() + " que é " + usuario.getPapeis().get(0).getPapelNome());
+				return "redirect:/usuarios/novo";
 			} else {
 				return "PermissaoNegada";
 			}
@@ -86,19 +87,6 @@ public class UsuarioController {
 		List<Usuario> usuarios = cadastroUsuarioService.listar();
 		model.addAttribute("users", usuarios);
 		return LISTAR_USUARIOS;
-	}
-
-	@RequestMapping("editar/{id}")
-	public String editar(@PathVariable("id") Usuario usuario, Model model) {
-		model.addAttribute("papeis", papelService.listar());
-		model.addAttribute(usuario);
-		return CADASTRO_USUARIO;
-	}
-
-	@RequestMapping(value = "excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-		cadastroUsuarioService.excluir(id);
-		return "redirect:/usuarios/listar";
 	}
 
 }

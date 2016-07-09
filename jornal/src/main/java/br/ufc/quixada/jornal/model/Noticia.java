@@ -27,6 +27,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "noticia")
 public class Noticia {
 
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

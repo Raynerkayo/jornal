@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufc.quixada.jornal.model.Noticia;
+import br.ufc.quixada.jornal.model.Usuario;
 import br.ufc.quixada.jornal.repository.NoticiaRepository;
 
 @Service
@@ -37,13 +38,16 @@ public class NoticiaService {
 		return noticiasSecao;
 	}
 	
-	public List<Noticia> buscarNoticiaPorId(Long id){
-		List<Noticia> noticias = noticiaRepository.findByIdLike(id);
-		return noticias;
+	public Noticia buscarNoticia(Long id){
+		return noticiaRepository.findByIdLike(id);
 	}
 	
 	public Noticia buscarNoticiaPorIdNoticia(Long id){
 		return noticiaRepository.findOne(id);
+	}
+
+	public List<Noticia> listarNoticiaUsuario(Usuario usuarioLogado) {
+		return noticiaRepository.findByUsuarioLike(usuarioLogado);
 	}
 	
 	

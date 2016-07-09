@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.jornal.model.Classificado;
 import br.ufc.quixada.jornal.model.Oferta;
+import br.ufc.quixada.jornal.model.Usuario;
 import br.ufc.quixada.jornal.service.ClassificadoService;
 import br.ufc.quixada.jornal.service.OfertaService;
 
@@ -26,43 +27,51 @@ public class ClassificadosController {
 
 	@Autowired
 	private ClassificadoService classificadoService;
-	
+
 	@Autowired
 	private OfertaService ofertaService;
 
 	@RequestMapping(value = "/novo", method = RequestMethod.GET)
-	public String novo(Model model, Classificado classificado) {
+	public String novo(Model model, Classificado classificado, HttpSession session) {
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if(usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("EDITOR")){
 		model.addAttribute(new Classificado());
 		return CADASTRAR_CLASSIFICADOS;
-	} 
+		}else{
+			return "PermissaoNegada";
+		}
+	}
 
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public String salvar(@Validated Classificado classificado, Model model, RedirectAttributes attributes,
 			HttpSession session) {
 		// verificar se é um editor
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if(usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("EDITOR")){
+			classificado.setUsuario(usuario);
 		classificadoService.salvar(classificado);
 		return "redirect:/editor/administracao";
+		} else{
+			return "PermissaoNegada";
+		}
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listarClassificados(Model model, Long idClassificado) {
-		List<Classificado> classificados = classificadoService.listar();
-		
-		for(Classificado classificado : classificados){
-			if(classificado.getId().equals(idClassificado)){
-				Oferta melhorOferta = ofertaService.listar(classificado);
-				classificado.setOferta(melhorOferta);
-				model.addAttribute("classificados", classificados);
-				model.addAttribute("ofertas", melhorOferta);
-				return LISTAR_CLASSIFICADOS;
-			}
-		}
-		
-		model.addAttribute("classificados", classificadoService.listar());
-		
-		return LISTAR_CLASSIFICADOS;
-	}
-	
-	
-
+				List<Classificado> classificados = classificadoService.listar();
+				
+				for(Classificado classificado : classificados){
+					if(classificado.getId().equals(idClassificado)){
+						Oferta melhorOferta = ofertaService.listar(classificado);
+						classificado.setOferta(melhorOferta);
+						model.addAttribute("classificados", classificados);
+						model.addAttribute("ofertas", melhorOferta);
+						return LISTAR_CLASSIFICADOS;
+					}
+				}
+				
+		 		model.addAttribute("classificados", classificadoService.listar());
+				
+		 		return LISTAR_CLASSIFICADOS;
+		 	}
 }

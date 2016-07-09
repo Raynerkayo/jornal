@@ -39,7 +39,7 @@ public class LoginController {
 			}
 			if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase(JORNALISTA)) {
 				System.out.println(">>>>" + usuario.getPapeis().get(0).getPapelNome());
-				return "redirect:/jornalista/administracao";
+				return "redirect:/jornalista";
 			}
 			if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase(LEITOR)) {
 				System.out.println(usuario.getPapeis().get(0).getPapelNome());
@@ -55,21 +55,4 @@ public class LoginController {
 		return "redirect:/login/efetuarLogin";
 	}
 
-	/*
-	 * @RequestMapping(value = "/efetuarLogin", method = RequestMethod.POST)
-	 * public String efetuarLogin(Login loginForm, HttpSession session){ Usuario
-	 * usuario = usuarioService.logar(loginForm.getLogin(),
-	 * loginForm.getSenha()); if(usuario != null){
-	 * if(criptografar.criptografarSenha(loginForm.getSenha()).equals(usuario.
-	 * getSenha())){ //lembrar de pegar o perfil do usuários, se tiver doids
-	 * levar para a pagina determinada session.setAttribute("usuarioLogado",
-	 * usuario); return "redirect:/papeis/listar"; } } return
-	 * "redirect:/papeis/novo"; }
-	 */
-	/*
-	 * @RequestMapping(value = "/efetuarLogout") public String
-	 * efetuarLogout(HttpSession session){ session.invalidate(); //Colocar para
-	 * formulario inicial, com conteudo para não cadastrados return
-	 * "redirect:formularioLogin"; }
-	 */
 }

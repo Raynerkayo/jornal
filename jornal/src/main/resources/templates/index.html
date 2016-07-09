@@ -19,7 +19,7 @@
 			<!--Colocar slides-->
 			<div class="carousel-inner">
 				<div th:each="secao : ${secoes}" class="item" 
-					th:classappend="${secao.id==9}?'active'">
+					th:classappend="${secao.id==1}?'active'">
 					<a th:href="@{/noticias/secao/{id}(id=${secao.id})}">
 						<img th:src="@{https://unsplash.it/1280/420?random}"/>
 					</a>

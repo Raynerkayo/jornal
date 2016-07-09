@@ -55,21 +55,18 @@ public class BloqueadorDeAcesso extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String uri = request.getRequestURI();
-		if (uri.endsWith("/") || uri.endsWith("/login/efetuarLogin") || uri.endsWith("/secoes/listar")
-				|| uri.endsWith("/usuarios/novo") || uri.endsWith("/classificados/listar")
-				|| uri.startsWith("/noticias/secao/") || uri.startsWith("/comentario/listar/")
-				|| uri.startsWith("/noticias/listar") || uri.startsWith("PermissaoNegada")
-				|| uri.startsWith("/css/") || uri.startsWith("/js/")) {
-
+		if (uri.endsWith("/") || uri.endsWith("/login/efetuarLogin") || uri.contains("/listar") || uri.startsWith("/usuarios/novo")) {
 			return true;
 		}
+
 		if (request.getSession().getAttribute("usuarioLogado") != null) {
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 			if (!usuario.getPapeis().isEmpty()) {
 				for (Papel papel : usuario.getPapeis()) {
 					if (papel.getPapelNome().equalsIgnoreCase(EDITOR)) {
 						uri.startsWith("/editor");
-						return true;
+							return true;
+						
 					} else if (papel.getPapelNome().equalsIgnoreCase(JORNALISTA)) {
 						uri.startsWith("/jornalista");
 						return true;

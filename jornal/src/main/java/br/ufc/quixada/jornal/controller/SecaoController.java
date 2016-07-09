@@ -9,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.jornal.model.Secao;
+import br.ufc.quixada.jornal.model.Usuario;
 import br.ufc.quixada.jornal.service.SecaoService;
 
 @Controller
@@ -28,21 +28,30 @@ public class SecaoController {
 	private SecaoService secaoService;
 	
 	@RequestMapping(value = "/nova", method=RequestMethod.GET)
-	public String novaSecao(Model model){
+	public String novaSecao(Model model, HttpSession session){
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if(usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("editor")){
 		model.addAttribute(new Secao());
 		return CADASTRAR_SECAO;
+		} else{
+			return "PermissaoNegada";
+		}
 	}
 	
 	@RequestMapping(value = "/nova", method = RequestMethod.POST)
 	public String salvarSecao(@Validated Secao secao, Errors errors, RedirectAttributes attributes, HttpSession session) {
-		
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if(usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("editor")){
 		if (errors.hasErrors()) {
 			return CADASTRAR_SECAO;
 		}
 		
 		secaoService.salvar(secao);
 		attributes.addFlashAttribute("mensagem", "Seção cadastrada com sucesso."); 
-		return "redirect:/secoes/listar";
+		return "redirect:/secoes/listar";}
+		else{
+			return "PermissaoNegada";
+		}
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -52,15 +61,4 @@ public class SecaoController {
 		return LISTAR_SECOES;
 	}
 	
-	@RequestMapping(value = "/excluir/{id}")
-	public String remover(@PathVariable("id") Long id){
-		secaoService.excluir(id);
-		return "redirect:/secoes/listar";
-	}
-	
-	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") Secao secao, Model model){
-		model.addAttribute(secao);
-		return CADASTRAR_SECAO;
-	}
 }

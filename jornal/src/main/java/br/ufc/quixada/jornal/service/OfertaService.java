@@ -20,14 +20,6 @@ public class OfertaService{
 		ofertaRepository.save(oferta);
 	}
 	
-	public Oferta valorOfertaAtual(Long idClassificado) {
-		return ofertaRepository.valorOfertaAtual(idClassificado);
-	}
-	
-	/*public List<Oferta> buscarOfertasPorClassificado(Long id){
-		return ofertaRepository.findByClassificadoLike(id); 
-	}*/
-	
 	public List<Oferta> listar(){
 		return ofertaRepository.findAll();
 	}

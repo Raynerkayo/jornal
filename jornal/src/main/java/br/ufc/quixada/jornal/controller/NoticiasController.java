@@ -1,6 +1,7 @@
 package br.ufc.quixada.jornal.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.ufc.quixada.jornal.media.FileUtil;
+import br.ufc.quixada.jornal.model.Comentario;
 import br.ufc.quixada.jornal.model.Noticia;
 import br.ufc.quixada.jornal.model.Usuario;
+import br.ufc.quixada.jornal.service.ComentarioService;
 import br.ufc.quixada.jornal.service.NoticiaService;
 import br.ufc.quixada.jornal.service.SecaoService;
 
@@ -38,11 +41,19 @@ public class NoticiasController {
 	@Autowired
 	private SecaoService secaoService;
 
+	@Autowired
+	private ComentarioService comentarioService;
+
 	@RequestMapping("/nova")
-	public String novo(Model model, Noticia noticia) {
+	public String novo(Model model, Noticia noticia, HttpSession session) {
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if(usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("jornalista")){
 		model.addAttribute("secoes", secaoService.listar());
 		model.addAttribute(new Noticia());
 		return CADASTRAR_NOTICIAS;
+		}else{
+			return "PermissaoNegada";
+		}
 	}
 
 	@RequestMapping(value = "/nova", method = RequestMethod.POST)
@@ -70,6 +81,13 @@ public class NoticiasController {
 		}
 	}
 
+	@RequestMapping("/minhas")
+	public String listarMinhasNoticias(Model model, HttpSession session) {
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+		model.addAttribute("noticias", noticiaService.listarNoticiaUsuario(usuarioLogado));
+		return LISTAR_NOTICIAS;
+	}
+
 	@RequestMapping("/listar")
 	public String listar(Model model) {
 		model.addAttribute("noticias", noticiaService.listar());
@@ -78,24 +96,26 @@ public class NoticiasController {
 
 	@RequestMapping("/listar/{id}")
 	public String listarPorId(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("noticias", noticiaService.buscarNoticiaPorId(id));
+		Noticia noticia = noticiaService.buscarNoticia(id);
+		List<Comentario> comentarios = comentarioService.findByComentarioNoticia(noticia);
+		noticia.setComentarios(comentarios);
+		model.addAttribute("comentarios", comentarios);
+		model.addAttribute("noticias", noticia);
 		return LISTAR_NOTICIAS;
 	}
 
 	@RequestMapping("editar/{id}")
-	public String editar(@PathVariable("id") Noticia noticia, Model model) {
-		model.addAttribute("secoes", secaoService.listar());
-		model.addAttribute("noticia", noticia);
-		return CADASTRAR_NOTICIAS;
+	public String editar(@PathVariable("id") Noticia noticia, Model model, HttpSession session) {
+		Usuario usuarioDaSessao = (Usuario) session.getAttribute("usuarioLogado");
+		Noticia noticiaA = noticiaService.buscarNoticiaPorIdNoticia(noticia.getId());
+		if (noticiaA.getUsuario().getId() == usuarioDaSessao.getId()) {
+			model.addAttribute("secoes", secaoService.listar());
+			model.addAttribute("noticia", noticia);
+			return CADASTRAR_NOTICIAS;
+		}else{
+			return "PermissaoNegada";
+		}
 	}
-
-	// @RequestMapping("editar")
-	// public String editar(@RequestParam(value="id") Noticia noticia, Model
-	// model) {
-	// model.addAttribute("secoes", secaoService.listar());
-	// model.addAttribute("noticia", noticia);
-	// return CADASTRAR_NOTICIAS;
-	// }
 
 	@RequestMapping("excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, HttpSession session) {
@@ -108,12 +128,6 @@ public class NoticiasController {
 		}
 		return "PermissaoNegada";
 	}
-
-//	@RequestMapping(value = "/jornalista/{id}", method = RequestMethod.GET)
-//	public String listarNoticiasJornalistas(@PathVariable("id") Long id, Model model) {
-//		model.addAttribute("noticias", noticiaService.listarNoticiasJornalista(id));
-//		return LISTAR_NOTICIAS;
-//	}
 
 	@RequestMapping(value = "/secao/{id}", method = RequestMethod.GET)
 	public String listarNoticiasSecoes(@PathVariable("id") Long id, Model model) {
