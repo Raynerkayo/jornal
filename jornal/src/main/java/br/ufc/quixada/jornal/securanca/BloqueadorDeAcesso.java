@@ -55,8 +55,14 @@ public class BloqueadorDeAcesso extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String uri = request.getRequestURI();
-		if (uri.endsWith("/") || uri.endsWith("/login/efetuarLogin") || uri.contains("/listar") || uri.startsWith("/usuarios/novo")) {
+		if (uri.endsWith("/") || uri.endsWith("/login/efetuarLogin") || uri.endsWith("/secoes/listar")
+				|| uri.endsWith("/usuarios/novo") || uri.endsWith("/classificados/listar")
+				|| uri.startsWith("/noticias/secao/") || uri.startsWith("/comentario/listar/")
+				|| uri.startsWith("/noticias/listar") || uri.startsWith("PermissaoNegada") || uri.startsWith("/css/")
+				|| uri.startsWith("/js/")) {
+
 			return true;
+
 		}
 
 		if (request.getSession().getAttribute("usuarioLogado") != null) {
