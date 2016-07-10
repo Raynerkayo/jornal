@@ -47,11 +47,11 @@ public class NoticiasController {
 	@RequestMapping("/nova")
 	public String novo(Model model, Noticia noticia, HttpSession session) {
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		if(usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("jornalista")){
-		model.addAttribute("secoes", secaoService.listar());
-		model.addAttribute(new Noticia());
-		return CADASTRAR_NOTICIAS;
-		}else{
+		if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("jornalista")) {
+			model.addAttribute("secoes", secaoService.listar());
+			model.addAttribute(new Noticia());
+			return CADASTRAR_NOTICIAS;
+		} else {
 			return "PermissaoNegada";
 		}
 	}
@@ -83,9 +83,13 @@ public class NoticiasController {
 
 	@RequestMapping("/minhas")
 	public String listarMinhasNoticias(Model model, HttpSession session) {
-		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-		model.addAttribute("noticias", noticiaService.listarNoticiaUsuario(usuarioLogado));
-		return LISTAR_NOTICIAS;
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if (usuario.getPapeis().get(0).getPapelNome().equalsIgnoreCase("jornalista")) {
+			model.addAttribute("noticias", noticiaService.listarNoticiaUsuario(usuario));
+			return LISTAR_NOTICIAS;
+		}else{
+			return "PermissaoNegada";
+		}
 	}
 
 	@RequestMapping("/listar")
@@ -112,7 +116,7 @@ public class NoticiasController {
 			model.addAttribute("secoes", secaoService.listar());
 			model.addAttribute("noticia", noticia);
 			return CADASTRAR_NOTICIAS;
-		}else{
+		} else {
 			return "PermissaoNegada";
 		}
 	}

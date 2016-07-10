@@ -13,13 +13,13 @@
 		<h1>Seções</h1>
 
 		<div id="Carrosel" class="carousel slide" data-ride="carousel" data-interval="3000">
-			<ol class="carousel-indicators" th:each="secao : ${secoes}" >
-				<li data-target="#Carrosel" data-slide-to=""></li>
+			<ol class="carousel-indicators" th:each="secao, rowStat : ${secoes}" >
+				<li data-target="#Carrosel" th:data-slide-to="{rowStat.count}"></li>
 			</ol>
 			<!--Colocar slides-->
 			<div class="carousel-inner">
-				<div th:each="secao : ${secoes}" class="item" 
-					th:classappend="${secao.id==1}?'active'">
+				<div th:each="secao, contador : ${secoes}" class="item" 
+					th:classappend="${contador.index==1}?'active'">
 					<a th:href="@{/noticias/secao/{id}(id=${secao.id})}">
 						<img th:src="@{https://unsplash.it/1280/420?random}"/>
 					</a>
